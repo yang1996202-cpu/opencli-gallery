@@ -2,11 +2,13 @@
 
 > OpenCLI 站点可视化目录。162 个站点 · 1050 条命令 · 按场景分类浏览。
 
-<!-- 部署状态 badge 将由 GitHub Actions 自动添加 -->
+[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare%20Pages-live-success?logo=cloudflarepages)](https://opencli-gallery.pages.dev)
 
 ## 在线预览
 
-> 部署后此处会自动更新 URL
+🔗 **https://opencli-gallery.pages.dev**
+
+> 162 个站点 · 1050 条命令 · 按场景分类浏览
 
 ## 功能
 
@@ -20,7 +22,7 @@
 
 - Vue 3 + TypeScript + Vite
 - 纯 CSS，无 UI 框架
-- GitHub Pages 部署
+- Cloudflare Pages 部署
 
 ## 自动同步原理
 
@@ -28,11 +30,12 @@
 GitHub Actions (每天 3:00 UTC)
   ├─ npm install -g @jackwener/opencli@latest
   ├─ opencli list -f json > public/data.json   ← 拉取最新数据
-  ├─ npm run build
-  └─ deploy to GitHub Pages
+  └─ git commit & push 到 main
 ```
 
-OpenCLI 每新增一个站点，第二天网站自动刷新。
+OpenCLI 每新增一个站点，第二天 `public/data.json` 会自动更新。
+
+生产部署通过 Cloudflare Pages（`wrangler pages deploy`）。后续可接入 Cloudflare Pages 的 Git 集成，或让 GitHub Actions 直接调用 wrangler 部署，实现"数据更新 → 网站刷新"全自动。
 
 ## 本地开发
 
