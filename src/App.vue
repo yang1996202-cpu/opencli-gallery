@@ -13,6 +13,14 @@ const loading = ref(true);
 const error = ref('');
 
 const lastUpdated = __BUILD_TIME__;
+const copied = ref(false);
+
+function copyWechat() {
+  navigator.clipboard.writeText('a158566566').then(() => {
+    copied.value = true;
+    setTimeout(() => copied.value = false, 2000);
+  });
+}
 
 onMounted(async () => {
   try {
@@ -182,12 +190,72 @@ function closeDetail() {
       </div>
     </main>
 
-    <footer class="footer">
+    <!-- 作者区域 -->
+    <section class="author-section">
       <div class="container">
+        <div class="author-card">
+          <div class="author-avatar">杨</div>
+          <div class="author-info">
+            <h3>杨京艺 · OpenCLI 导航</h3>
+            <p class="author-desc">前 SaaS 销售 / 探索 AI 工具、Agent、MCP、Skill</p>
+          </div>
+        </div>
+
+        <div class="social-links">
+          <a href="https://github.com/yang1996202-cpu/opencli-gallery" target="_blank" class="social-link">
+            <span class="social-icon">⭐</span>
+            <div>
+              <div class="social-name">GitHub</div>
+              <div class="social-handle">给项目点个 Star</div>
+            </div>
+          </a>
+          <a href="https://github.com/yang1996202-cpu" target="_blank" class="social-link">
+            <span class="social-icon">🐙</span>
+            <div>
+              <div class="social-name">GitHub</div>
+              <div class="social-handle">yang1996202-cpu</div>
+            </div>
+          </a>
+          <div class="social-link" @click="copyWechat" style="cursor: pointer;">
+            <span class="social-icon">💬</span>
+            <div>
+              <div class="social-name">微信（点击复制）</div>
+              <div class="social-handle">a158566566</div>
+            </div>
+            <span v-if="copied" class="copy-tip">已复制!</span>
+          </div>
+          <div class="social-link wechat-official">
+            <span class="social-icon">📢</span>
+            <div>
+              <div class="social-name">公众号</div>
+              <div class="social-handle">二哥的进化论</div>
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="https://github.com/yang1996202-cpu/opencli-gallery"
+          target="_blank"
+          class="star-btn"
+        >
+          ⭐ 给项目点个 Star
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
         <p>
           共 {{ filteredSites.length }} 个站点 |
           来源：opencli list |
           最后更新：{{ lastUpdated }}
+        </p>
+        <p class="footer-links">
+          <a href="https://github.com/yang1996202-cpu/opencli-gallery" target="_blank">GitHub</a>
+          <span>·</span>
+          <span>杨京艺</span>
+          <span>·</span>
+          <span>v1.0.0</span>
         </p>
       </div>
     </footer>
@@ -425,11 +493,164 @@ body {
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
 
+/* Author Section */
+.author-section {
+  border-top: 1px solid var(--border);
+  padding: 40px 0 32px;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-elevated) 100%);
+}
+
+.author-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.author-avatar {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+}
+
+.author-info h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.author-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.social-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.social-link:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.social-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.social-handle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.copy-tip {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.star-btn {
+  display: block;
+  max-width: 360px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.star-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+}
+
+.footer-links span {
+  color: var(--text-muted);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header-inner { flex-direction: column; }
   .stats { width: 100%; justify-content: space-around; }
   .brand h1 { font-size: 22px; }
   .gallery { grid-template-columns: 1fr; }
+  .social-links { grid-template-columns: 1fr; }
 }
 </style>
