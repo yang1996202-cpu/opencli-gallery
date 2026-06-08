@@ -115,7 +115,7 @@ function closeDetail() {
           <div class="brand-icon">⚡</div>
           <div>
             <h1>OpenCLI Gallery</h1>
-            <p class="subtitle">162 站点 · 1050 命令 · 按场景分类浏览</p>
+            <p class="subtitle">162 站点 · 1050 命令 · 按场景分类浏览 · 每周自动同步</p>
           </div>
         </div>
         <div class="stats">
@@ -240,6 +240,21 @@ function closeDetail() {
         >
           ⭐ 给项目点个 Star
         </a>
+      </div>
+    </section>
+
+    <section class="auto-update-section">
+      <div class="container">
+        <div class="update-badge">🔄 自动同步</div>
+        <p class="update-desc">
+          数据来源 <a href="https://github.com/jackwener/opencli" target="_blank">OpenCLI</a>，
+          GitHub Actions 每周一自动拉取最新站点列表并部署。
+          OpenCLI 每新增一个站点，下周一本站自动刷新。
+        </p>
+        <p class="update-desc" style="margin-top: 8px;">
+          发现好用的站点？欢迎
+          <a href="https://github.com/yang1996202-cpu/opencli-gallery" target="_blank">给项目 Star ⭐</a>
+        </p>
       </div>
     </section>
 
@@ -492,6 +507,42 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
+
+/* Auto Update Section */
+.auto-update-section {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  background: var(--bg-elevated);
+}
+
+.update-badge {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #22c55e;
+  background: #22c55e18;
+  padding: 4px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.update-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.update-desc a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.update-desc a:hover {
+  text-decoration: underline;
+}
 
 /* Author Section */
 .author-section {
