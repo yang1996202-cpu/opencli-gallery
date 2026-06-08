@@ -90,8 +90,51 @@ const categoryStats = computed(() => {
   }));
 });
 
+// 全量分类分布（每个分类的站点数和百分比）
+const fullDistribution = computed(() => {
+  const total = sites.value.length;
+  return CATEGORIES.map(cat => {
+    const count = sites.value.filter(s => s.category === cat.key).length;
+    return {
+      ...cat,
+      count,
+      percent: total > 0 ? (count / total * 100) : 0,
+    };
+  }).filter(c => c.count > 0);
+});
+
+// 当前筛选后的分类分布
+const filteredDistribution = computed(() => {
+  const total = filteredSites.value.length;
+  return CATEGORIES.map(cat => {
+    const count = filteredSites.value.filter(s => s.category === cat.key).length;
+    return {
+      ...cat,
+      count,
+      percent: total > 0 ? (count / total * 100) : 0,
+    };
+  }).filter(c => c.count > 0);
+});
+
+// 是否处于筛选状态
+const isFiltered = computed(() =>
+  selectedCategory.value !== 'all' || searchQuery.value.length > 0
+);
+
+const filteredPublic = computed(() =>
+  filteredSites.value.reduce((sum, s) => sum + s.commands.filter(c => c.strategy === 'public').length, 0)
+);
+
 const totalPublic = computed(() =>
   sites.value.reduce((sum, s) => sum + s.commands.filter(c => c.strategy === 'public').length, 0)
+);
+
+const totalCommands = computed(() =>
+  sites.value.reduce((s, x) => s + x.commandCount, 0)
+);
+
+const filteredCommands = computed(() =>
+  filteredSites.value.reduce((s, x) => s + x.commandCount, 0)
 );
 
 function selectCategory(cat: CategoryKey | 'all') {
@@ -115,22 +158,64 @@ function closeDetail() {
           <div class="brand-icon">⚡</div>
           <div>
             <h1>OpenCLI Gallery</h1>
-            <p class="subtitle">162 站点 · 1050 命令 · 按场景分类浏览 · 每周自动同步</p>
+            <p class="subtitle">{{ sites.length }} 站点 · {{ totalCommands }} 命令 · 按场景分类浏览 · 每周自动同步</p>
           </div>
         </div>
         <div class="stats">
           <div class="stat">
-            <div class="stat-value">{{ sites.length }}</div>
-            <div class="stat-label">站点</div>
+            <div class="stat-value">{{ isFiltered ? Math.round(filteredSites.length / sites.length * 100) + '%' : sites.length }}</div>
+            <div class="stat-label">站点{{ isFiltered ? ' · ' + filteredSites.length + '/' + sites.length : '' }}</div>
           </div>
           <div class="stat">
-            <div class="stat-value">{{ sites.reduce((s, x) => s + x.commandCount, 0) }}</div>
-            <div class="stat-label">命令</div>
+            <div class="stat-value">{{ isFiltered ? Math.round(filteredCommands / totalCommands * 100) + '%' : totalCommands }}</div>
+            <div class="stat-label">命令{{ isFiltered ? ' · ' + filteredCommands + '/' + totalCommands : '' }}</div>
           </div>
           <div class="stat">
-            <div class="stat-value" style="color: #22c55e">{{ totalPublic }}</div>
-            <div class="stat-label">免登录</div>
+            <div class="stat-value" style="color: #22c55e">{{ isFiltered ? Math.round(filteredPublic / totalPublic * 100) + '%' : totalPublic }}</div>
+            <div class="stat-label">免登录{{ isFiltered ? ' · ' + filteredPublic + '/' + totalPublic : '' }}</div>
           </div>
+        </div>
+      </div>
+
+      <!-- 全量分类分布 -->
+      <div class="container dist-section">
+        <div class="dist-header">
+          <span class="dist-title">全量分布</span>
+          <div class="dist-legend">
+            <span v-for="d in fullDistribution" :key="d.key" class="legend-item">
+              <span class="legend-dot" :style="{ background: d.color }"></span>
+              <span class="legend-text">{{ d.icon }} {{ d.count }}</span>
+            </span>
+          </div>
+        </div>
+        <div class="dist-bar">
+          <div
+            v-for="d in fullDistribution"
+            :key="d.key"
+            class="dist-segment"
+            :style="{ width: d.percent + '%', background: d.color }"
+            :title="d.label + ': ' + d.count + ' (' + Math.round(d.percent) + '%)'"
+          ></div>
+        </div>
+
+        <!-- 当前筛选分布 -->
+        <div v-if="isFiltered" class="dist-header" style="margin-top: 12px;">
+          <span class="dist-title">当前筛选</span>
+          <div class="dist-legend">
+            <span v-for="d in filteredDistribution" :key="d.key" class="legend-item">
+              <span class="legend-dot" :style="{ background: d.color }"></span>
+              <span class="legend-text">{{ d.icon }} {{ d.count }}</span>
+            </span>
+          </div>
+        </div>
+        <div v-if="isFiltered" class="dist-bar">
+          <div
+            v-for="d in filteredDistribution"
+            :key="d.key"
+            class="dist-segment"
+            :style="{ width: d.percent + '%', background: d.color }"
+            :title="d.label + ': ' + d.count + ' (' + Math.round(d.percent) + '%)'"
+          ></div>
         </div>
       </div>
     </header>
@@ -389,6 +474,73 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-top: 2px;
+}
+
+/* Controls */
+
+.dist-section {
+  padding-top: 20px;
+}
+
+.dist-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.dist-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  flex-shrink: 0;
+}
+
+.dist-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legend-text {
+  white-space: nowrap;
+}
+
+.dist-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  gap: 1px;
+  background: var(--border);
+}
+
+.dist-segment {
+  min-width: 3px;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.dist-segment:hover {
+  opacity: 0.8;
+  filter: brightness(1.2);
 }
 
 /* Controls */
