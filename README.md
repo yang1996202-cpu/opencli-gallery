@@ -16,7 +16,7 @@
 - **实时搜索** — 搜站点名、命令名、描述，即时过滤
 - **卡片网格** — 暗色主题，悬停动效，命令数、登录状态一目了然
 - **详情弹窗** — 点卡片查看该站点全部命令，含完整描述和示例
-- **自动同步** — GitHub Actions 每天定时跑 `opencli list`，数据永远最新
+- **自动同步** — GitHub Actions 每周一自动拉取 OpenCLI 最新站点数据
 
 ## 技术栈
 
@@ -24,18 +24,20 @@
 - 纯 CSS，无 UI 框架
 - Cloudflare Pages 部署
 
-## 自动同步原理
+## 自动化
 
+**数据同步**（每周一 03:00 UTC，自动）：
 ```
-GitHub Actions (每天 3:00 UTC)
-  ├─ npm install -g @jackwener/opencli@latest
-  ├─ opencli list -f json > public/data.json   ← 拉取最新数据
-  └─ git commit & push 到 main
+GitHub Actions → opencli list -f json → commit data.json
 ```
 
-OpenCLI 每新增一个站点，第二天 `public/data.json` 会自动更新。
+**生产部署**（手动触发）：
+```
+Actions 页面 → Deploy → Run workflow
+```
+或本地执行 `npm run build && npx wrangler pages deploy dist`
 
-生产部署通过 Cloudflare Pages（`wrangler pages deploy`）。后续可接入 Cloudflare Pages 的 Git 集成，或让 GitHub Actions 直接调用 wrangler 部署，实现"数据更新 → 网站刷新"全自动。
+OpenCLI 每新增一个站点，下周一数据自动更新，手动部署后网站刷新。
 
 ## 本地开发
 
