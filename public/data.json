@@ -1,5 +1,37 @@
 [
   {
+    "command": "12306/login",
+    "site": "12306",
+    "name": "login",
+    "aliases": [],
+    "description": "Open 12306 login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_name"
+    ],
+    "domain": "12306.cn",
+    "example": "opencli 12306 login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "12306/me",
     "site": "12306",
     "name": "me",
@@ -372,6 +404,26 @@
     "siteSession": null
   },
   {
+    "command": "12306/whoami",
+    "site": "12306",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in 12306 account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_name"
+    ],
+    "domain": "12306.cn",
+    "example": "opencli 12306 whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "1688/assets",
     "site": "1688",
     "name": "assets",
@@ -482,6 +534,39 @@
     "siteSession": null
   },
   {
+    "command": "1688/login",
+    "site": "1688",
+    "name": "login",
+    "aliases": [],
+    "description": "Open 1688 login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "1688.com",
+    "example": "opencli 1688 login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "1688/search",
     "site": "1688",
     "name": "search",
@@ -559,6 +644,27 @@
     "example": "opencli 1688 store <input> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "1688/whoami",
+    "site": "1688",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in 1688 account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "1688.com",
+    "example": "opencli 1688 whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "1point3acres/digest",
@@ -758,6 +864,39 @@
     "example": "opencli 1point3acres latest -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "1point3acres/login",
+    "site": "1point3acres",
+    "name": "login",
+    "aliases": [],
+    "description": "Open 1point3acres login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "username"
+    ],
+    "domain": "1point3acres.com",
+    "example": "opencli 1point3acres login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "1point3acres/notifications",
@@ -961,6 +1100,27 @@
     "example": "opencli 1point3acres user <who> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "1point3acres/whoami",
+    "site": "1point3acres",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in 1point3acres account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "username"
+    ],
+    "domain": "1point3acres.com",
+    "example": "opencli 1point3acres whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "36kr/article",
@@ -1543,6 +1703,38 @@
     "siteSession": null
   },
   {
+    "command": "amazon/login",
+    "site": "amazon",
+    "name": "login",
+    "aliases": [],
+    "description": "Open amazon login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_name"
+    ],
+    "domain": "amazon.com",
+    "example": "opencli amazon login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "amazon/movers-shakers",
     "site": "amazon",
     "name": "movers-shakers",
@@ -1742,6 +1934,26 @@
     "example": "opencli amazon search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "amazon/whoami",
+    "site": "amazon",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in amazon account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_name"
+    ],
+    "domain": "amazon.com",
+    "example": "opencli amazon whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "antigravity/add-context",
@@ -3114,6 +3326,38 @@
     "siteSession": null
   },
   {
+    "command": "band/login",
+    "site": "band",
+    "name": "login",
+    "aliases": [],
+    "description": "Open band login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "band.us",
+    "example": "opencli band login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "band/mentions",
     "site": "band",
     "name": "mentions",
@@ -3276,6 +3520,26 @@
     "example": "opencli band posts <band_no> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "band/whoami",
+    "site": "band",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in band account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "band.us",
+    "example": "opencli band whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "barchart/flow",
@@ -3921,6 +4185,38 @@
     "siteSession": null
   },
   {
+    "command": "bilibili/follow",
+    "site": "bilibili",
+    "name": "follow",
+    "aliases": [],
+    "description": "关注 B站用户（官方 API，需登录）",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "target",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "目标 UID / 用户名 / space.bilibili.com 链接"
+      }
+    ],
+    "columns": [
+      "mid",
+      "name",
+      "status",
+      "url"
+    ],
+    "domain": "www.bilibili.com",
+    "example": "opencli bilibili follow <target> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "bilibili/following",
     "site": "bilibili",
     "name": "following",
@@ -4267,6 +4563,38 @@
     "siteSession": null
   },
   {
+    "command": "bilibili/unfollow",
+    "site": "bilibili",
+    "name": "unfollow",
+    "aliases": [],
+    "description": "取消关注 B站用户（官方 API，需登录）",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "target",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "目标 UID / 用户名 / space.bilibili.com 链接"
+      }
+    ],
+    "columns": [
+      "mid",
+      "name",
+      "status",
+      "url"
+    ],
+    "domain": "www.bilibili.com",
+    "example": "opencli bilibili unfollow <target> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "bilibili/user-videos",
     "site": "bilibili",
     "name": "user-videos",
@@ -4380,7 +4708,7 @@
     "domain": "www.bilibili.com",
     "example": "opencli bilibili whoami -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "binance/asks",
@@ -4804,7 +5132,39 @@
     "site": "bloomberg",
     "name": "businessweek",
     "aliases": [],
-    "description": "Bloomberg Businessweek top stories (RSS)",
+    "description": "Bloomberg Businessweek top stories",
+    "access": "read",
+    "strategy": "public",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 1,
+        "help": "Number of stories to return (max 20)"
+      }
+    ],
+    "columns": [
+      "title",
+      "summary",
+      "link",
+      "mediaLinks"
+    ],
+    "domain": "www.bloomberg.com",
+    "example": "opencli bloomberg businessweek -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "bloomberg/crypto",
+    "site": "bloomberg",
+    "name": "crypto",
+    "aliases": [],
+    "description": "Bloomberg Crypto top stories (RSS)",
     "access": "read",
     "strategy": "public",
     "browser": false,
@@ -4827,7 +5187,7 @@
       "mediaLinks"
     ],
     "domain": "feeds.bloomberg.com",
-    "example": "opencli bloomberg businessweek -f yaml",
+    "example": "opencli bloomberg crypto -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -4879,6 +5239,38 @@
     ],
     "domain": "feeds.bloomberg.com",
     "example": "opencli bloomberg feeds -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "bloomberg/green",
+    "site": "bloomberg",
+    "name": "green",
+    "aliases": [],
+    "description": "Bloomberg Green (climate & energy) top stories (RSS)",
+    "access": "read",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 1,
+        "help": "Number of feed items to return (max 20)"
+      }
+    ],
+    "columns": [
+      "title",
+      "summary",
+      "link",
+      "mediaLinks"
+    ],
+    "domain": "feeds.bloomberg.com",
+    "example": "opencli bloomberg green -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -5072,6 +5464,38 @@
     ],
     "domain": "feeds.bloomberg.com",
     "example": "opencli bloomberg politics -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "bloomberg/pursuits",
+    "site": "bloomberg",
+    "name": "pursuits",
+    "aliases": [],
+    "description": "Bloomberg Pursuits (lifestyle) top stories (RSS)",
+    "access": "read",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 1,
+        "help": "Number of feed items to return (max 20)"
+      }
+    ],
+    "columns": [
+      "title",
+      "summary",
+      "link",
+      "mediaLinks"
+    ],
+    "domain": "feeds.bloomberg.com",
+    "example": "opencli bloomberg pursuits -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -6001,6 +6425,38 @@
     "siteSession": null
   },
   {
+    "command": "boss/login",
+    "site": "boss",
+    "name": "login",
+    "aliases": [],
+    "description": "Open boss login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_type"
+    ],
+    "domain": "zhipin.com",
+    "example": "opencli boss login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "boss/mark",
     "site": "boss",
     "name": "mark",
@@ -6317,6 +6773,26 @@
     "siteSession": null
   },
   {
+    "command": "boss/whoami",
+    "site": "boss",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in boss account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_type"
+    ],
+    "domain": "zhipin.com",
+    "example": "opencli boss whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "brave/search",
     "site": "brave",
     "name": "search",
@@ -6506,6 +6982,60 @@
     "example": "opencli chaoxing exams -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "chaoxing/login",
+    "site": "chaoxing",
+    "name": "login",
+    "aliases": [],
+    "description": "Open chaoxing login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chaoxing.com",
+    "example": "opencli chaoxing login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "chaoxing/whoami",
+    "site": "chaoxing",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in chaoxing account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chaoxing.com",
+    "example": "opencli chaoxing whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "chatgpt-app/ask",
@@ -6989,6 +7519,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "chatgpt/login",
+    "site": "chatgpt",
+    "name": "login",
+    "aliases": [],
+    "description": "Open chatgpt login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chatgpt.com",
+    "example": "opencli chatgpt login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "chatgpt/model",
     "site": "chatgpt",
     "name": "model",
@@ -7138,6 +7701,27 @@
     ],
     "domain": "chatgpt.com",
     "example": "opencli chatgpt status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "chatgpt/whoami",
+    "site": "chatgpt",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in chatgpt account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chatgpt.com",
+    "example": "opencli chatgpt whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -7683,6 +8267,40 @@
     "siteSession": "persistent"
   },
   {
+    "command": "claude/login",
+    "site": "claude",
+    "name": "login",
+    "aliases": [],
+    "description": "Open claude login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "org_name",
+      "org_uuid"
+    ],
+    "domain": "claude.ai",
+    "example": "opencli claude login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "claude/new",
     "site": "claude",
     "name": "new",
@@ -7778,6 +8396,28 @@
     ],
     "domain": "claude.ai",
     "example": "opencli claude status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "claude/whoami",
+    "site": "claude",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in claude account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "org_name",
+      "org_uuid"
+    ],
+    "domain": "claude.ai",
+    "example": "opencli claude whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -9186,6 +9826,38 @@
     "siteSession": null
   },
   {
+    "command": "coupang/login",
+    "site": "coupang",
+    "name": "login",
+    "aliases": [],
+    "description": "Open coupang login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "coupang.com",
+    "example": "opencli coupang login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "coupang/product",
     "site": "coupang",
     "name": "product",
@@ -9304,6 +9976,26 @@
     "example": "opencli coupang search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "coupang/whoami",
+    "site": "coupang",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in coupang account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "coupang.com",
+    "example": "opencli coupang whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "crates/crate",
@@ -9593,6 +10285,40 @@
     "siteSession": null
   },
   {
+    "command": "ctrip/login",
+    "site": "ctrip",
+    "name": "login",
+    "aliases": [],
+    "description": "Open ctrip login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name",
+      "vip_grade"
+    ],
+    "domain": "ctrip.com",
+    "example": "opencli ctrip login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "ctrip/search",
     "site": "ctrip",
     "name": "search",
@@ -9643,6 +10369,28 @@
     "example": "opencli ctrip search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "ctrip/whoami",
+    "site": "ctrip",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in ctrip account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name",
+      "vip_grade"
+    ],
+    "domain": "ctrip.com",
+    "example": "opencli ctrip whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "cursor/ask",
@@ -10290,6 +11038,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "deepseek/login",
+    "site": "deepseek",
+    "name": "login",
+    "aliases": [],
+    "description": "Open deepseek login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chat.deepseek.com",
+    "example": "opencli deepseek login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "deepseek/new",
     "site": "deepseek",
     "name": "new",
@@ -10393,6 +11174,27 @@
     ],
     "domain": "chat.deepseek.com",
     "example": "opencli deepseek status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "deepseek/whoami",
+    "site": "deepseek",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in deepseek account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "chat.deepseek.com",
+    "example": "opencli deepseek whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -10706,6 +11508,39 @@
     "siteSession": null
   },
   {
+    "command": "dianping/login",
+    "site": "dianping",
+    "name": "login",
+    "aliases": [],
+    "description": "Open dianping login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "dianping.com",
+    "example": "opencli dianping login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "dianping/search",
     "site": "dianping",
     "name": "search",
@@ -10793,6 +11628,27 @@
     "example": "opencli dianping shop <shop_id> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "dianping/whoami",
+    "site": "dianping",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in dianping account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "dianping.com",
+    "example": "opencli dianping whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "dictionary/examples",
@@ -10899,7 +11755,10 @@
     "columns": [
       "Index",
       "Channel",
-      "Type"
+      "Type",
+      "guild_id",
+      "channel_id",
+      "url"
     ],
     "domain": "localhost",
     "example": "opencli discord-app channels -f yaml",
@@ -10937,6 +11796,68 @@
     "siteSession": null
   },
   {
+    "command": "discord-app/goto",
+    "site": "discord-app",
+    "name": "goto",
+    "aliases": [],
+    "description": "Open a Discord channel by id/name/url without sending messages",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "guild",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Guild/server id or visible name"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Channel id or visible name"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Discord channel URL"
+      },
+      {
+        "name": "timeout",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "8",
+        "help": "Seconds to wait for Discord to show the route (default: 8)"
+      }
+    ],
+    "columns": [
+      "Status",
+      "guild_id",
+      "channel_id",
+      "url"
+    ],
+    "domain": "localhost",
+    "example": "opencli discord-app goto -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "discord-app/members",
     "site": "discord-app",
     "name": "members",
@@ -10961,7 +11882,7 @@
     "site": "discord-app",
     "name": "read",
     "aliases": [],
-    "description": "Read recent messages from the active Discord channel",
+    "description": "Read recent messages from the active or targeted Discord channel",
     "access": "read",
     "strategy": "ui",
     "browser": true,
@@ -10975,12 +11896,44 @@
         "choices": [],
         "default": "20",
         "help": "Number of messages to read (default: 20)"
+      },
+      {
+        "name": "guild",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Guild/server id or visible name for targeted reads"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Channel id or visible name for targeted reads"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Discord channel URL to open before reading"
       }
     ],
     "columns": [
       "Author",
       "Time",
-      "Message"
+      "Message",
+      "channel_id",
+      "message_id"
     ],
     "domain": "localhost",
     "example": "opencli discord-app read -f yaml",
@@ -11059,7 +12012,9 @@
     "args": [],
     "columns": [
       "Index",
-      "Server"
+      "Server",
+      "guild_id",
+      "url"
     ],
     "domain": "localhost",
     "example": "opencli discord-app servers -f yaml",
@@ -11083,6 +12038,146 @@
     ],
     "domain": "localhost",
     "example": "opencli discord-app status -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "discord-app/thread-read",
+    "site": "discord-app",
+    "name": "thread-read",
+    "aliases": [],
+    "description": "Read recent messages from a Discord thread/post by id or URL",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "thread",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Thread/post id, or a full Discord thread/post URL"
+      },
+      {
+        "name": "count",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "20",
+        "help": "Number of messages to read (default: 20)"
+      },
+      {
+        "name": "guild",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Parent guild/server id or visible name"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Parent forum/channel id or visible name"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Discord thread/post URL"
+      }
+    ],
+    "columns": [
+      "Author",
+      "Time",
+      "Message",
+      "channel_id",
+      "message_id"
+    ],
+    "domain": "localhost",
+    "example": "opencli discord-app thread-read -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "discord-app/threads",
+    "site": "discord-app",
+    "name": "threads",
+    "aliases": [],
+    "description": "List visible Discord forum/thread posts in the active or targeted channel",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "30",
+        "help": "Maximum thread/post cards to return (default: 30)"
+      },
+      {
+        "name": "guild",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Guild/server id or visible name for targeted thread listing"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Forum/channel id or visible name for targeted thread listing"
+      },
+      {
+        "name": "url",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Discord forum/channel URL to open before listing threads"
+      }
+    ],
+    "columns": [
+      "Index",
+      "Thread",
+      "Author",
+      "Updated",
+      "Preview",
+      "guild_id",
+      "channel_id",
+      "thread_id",
+      "url"
+    ],
+    "domain": "localhost",
+    "example": "opencli discord-app threads -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -11276,6 +12371,39 @@
     "example": "opencli douban download <id> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "douban/login",
+    "site": "douban",
+    "name": "login",
+    "aliases": [],
+    "description": "Open douban login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "douban.com",
+    "example": "opencli douban login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "douban/marks",
@@ -11638,6 +12766,27 @@
     "siteSession": null
   },
   {
+    "command": "douban/whoami",
+    "site": "douban",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in douban account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "douban.com",
+    "example": "opencli douban whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "doubao-app/ask",
     "site": "doubao-app",
     "name": "ask",
@@ -11916,6 +13065,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "doubao/login",
+    "site": "doubao",
+    "name": "login",
+    "aliases": [],
+    "description": "Open doubao login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "www.doubao.com",
+    "example": "opencli doubao login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "doubao/meeting-summary",
     "site": "doubao",
     "name": "meeting-summary",
@@ -12082,6 +13264,27 @@
     ],
     "domain": "www.doubao.com",
     "example": "opencli doubao status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "doubao/whoami",
+    "site": "doubao",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in doubao account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "www.doubao.com",
+    "example": "opencli doubao whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -12868,7 +14071,7 @@
     "domain": "creator.douyin.com",
     "example": "opencli douyin whoami -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "duckduckgo/search",
@@ -13897,6 +15100,40 @@
     "siteSession": null
   },
   {
+    "command": "facebook/login",
+    "site": "facebook",
+    "name": "login",
+    "aliases": [],
+    "description": "Open facebook login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "vanity",
+      "profile_url"
+    ],
+    "domain": "facebook.com",
+    "example": "opencli facebook login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "facebook/marketplace-inbox",
     "site": "facebook",
     "name": "marketplace-inbox",
@@ -14108,6 +15345,28 @@
     "siteSession": null
   },
   {
+    "command": "facebook/whoami",
+    "site": "facebook",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in facebook account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "vanity",
+      "profile_url"
+    ],
+    "domain": "facebook.com",
+    "example": "opencli facebook whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "flathub/app",
     "site": "flathub",
     "name": "app",
@@ -14200,6 +15459,38 @@
     "siteSession": null
   },
   {
+    "command": "flomo/login",
+    "site": "flomo",
+    "name": "login",
+    "aliases": [],
+    "description": "Open flomo login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "flomoapp.com",
+    "example": "opencli flomo login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "flomo/memos",
     "site": "flomo",
     "name": "memos",
@@ -14254,6 +15545,26 @@
     "example": "opencli flomo memos -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "flomo/whoami",
+    "site": "flomo",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in flomo account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "flomoapp.com",
+    "example": "opencli flomo whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "gemini/ask",
@@ -14561,6 +15872,38 @@
     "siteSession": "persistent"
   },
   {
+    "command": "gemini/login",
+    "site": "gemini",
+    "name": "login",
+    "aliases": [],
+    "description": "Open gemini login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "gemini.google.com",
+    "example": "opencli gemini login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "gemini/new",
     "site": "gemini",
     "name": "new",
@@ -14616,6 +15959,26 @@
     ],
     "domain": "gemini.google.com",
     "example": "opencli gemini status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gemini/whoami",
+    "site": "gemini",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in gemini account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "gemini.google.com",
+    "example": "opencli gemini whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -14939,6 +16302,40 @@
     "siteSession": null
   },
   {
+    "command": "gitee/login",
+    "site": "gitee",
+    "name": "login",
+    "aliases": [],
+    "description": "Open gitee login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "name"
+    ],
+    "domain": "gitee.com",
+    "example": "opencli gitee login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "gitee/search",
     "site": "gitee",
     "name": "search",
@@ -15045,6 +16442,28 @@
     "siteSession": null
   },
   {
+    "command": "gitee/whoami",
+    "site": "gitee",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in gitee account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "name"
+    ],
+    "domain": "gitee.com",
+    "example": "opencli gitee whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "github/login",
     "site": "github",
     "name": "login",
@@ -15100,7 +16519,7 @@
     "domain": "github.com",
     "example": "opencli github whoami -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "google-scholar/cite",
@@ -15813,6 +17232,156 @@
     "siteSession": "persistent"
   },
   {
+    "command": "grok/export",
+    "site": "grok",
+    "name": "export",
+    "aliases": [],
+    "description": "Export all visible Grok conversation history metadata",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Max conversations to export; 0 means all loaded history"
+      },
+      {
+        "name": "maxScrolls",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 80,
+        "help": "Max history-list scroll rounds when limit is 0 (max 500)"
+      }
+    ],
+    "columns": [
+      "index",
+      "id",
+      "title",
+      "date",
+      "url"
+    ],
+    "domain": "grok.com",
+    "example": "opencli grok export -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "grok/export-all",
+    "site": "grok",
+    "name": "export-all",
+    "aliases": [],
+    "description": "Export Grok conversation history and each conversation transcript",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Max conversations to export; 0 means all loaded history"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Skip this many conversations before exporting"
+      },
+      {
+        "name": "manifestPath",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional grok/export JSON manifest path; skips history dialog and visits listed /c pages directly"
+      },
+      {
+        "name": "maxScrolls",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 80,
+        "help": "Max history-list scroll rounds when limit is 0 (max 500)"
+      },
+      {
+        "name": "pageScrolls",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 30,
+        "help": "Max per-conversation scroll-to-bottom rounds (max 200)"
+      },
+      {
+        "name": "pageTimeoutMs",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 30000,
+        "help": "Max wait for each conversation page to show messages"
+      },
+      {
+        "name": "delayMinMs",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Minimum polite delay after a conversation page loads"
+      },
+      {
+        "name": "delayMaxMs",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 5000,
+        "help": "Maximum polite delay after a conversation page loads"
+      }
+    ],
+    "columns": [
+      "index",
+      "id",
+      "title",
+      "date",
+      "url",
+      "status",
+      "messageCount",
+      "error",
+      "messagesJson"
+    ],
+    "domain": "grok.com",
+    "example": "opencli grok export-all --limit 5 -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "grok/history",
     "site": "grok",
     "name": "history",
@@ -15912,6 +17481,39 @@
     ],
     "domain": "grok.com",
     "example": "opencli grok image <prompt> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "grok/login",
+    "site": "grok",
+    "name": "login",
+    "aliases": [],
+    "description": "Open grok login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "grok.com",
+    "example": "opencli grok login -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -16082,6 +17684,27 @@
     ],
     "domain": "grok.com",
     "example": "opencli grok unpin <id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "grok/whoami",
+    "site": "grok",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in grok account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "grok.com",
+    "example": "opencli grok whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -16512,6 +18135,40 @@
     "siteSession": null
   },
   {
+    "command": "hf/login",
+    "site": "hf",
+    "name": "login",
+    "aliases": [],
+    "description": "Open hf login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "username",
+      "fullname",
+      "type"
+    ],
+    "domain": "huggingface.co",
+    "example": "opencli hf login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "hf/models",
     "site": "hf",
     "name": "models",
@@ -16749,6 +18406,28 @@
     "siteSession": null
   },
   {
+    "command": "hf/whoami",
+    "site": "hf",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in hf account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "username",
+      "fullname",
+      "type"
+    ],
+    "domain": "huggingface.co",
+    "example": "opencli hf whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "homebrew/cask",
     "site": "homebrew",
     "name": "cask",
@@ -16881,6 +18560,103 @@
     "siteSession": null
   },
   {
+    "command": "huodongxing/events",
+    "site": "huodongxing",
+    "name": "events",
+    "aliases": [],
+    "description": "活动行活动搜索（按标签、城市、日期、线上/线下、名称过滤）",
+    "access": "read",
+    "strategy": "public",
+    "browser": true,
+    "args": [
+      {
+        "name": "tag",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "活动标签，例如 AI"
+      },
+      {
+        "name": "city",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "全部",
+        "help": "城市名，例如 北京 / 上海 / 全部"
+      },
+      {
+        "name": "date",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "开始日期，格式 YYYY-MM-DD"
+      },
+      {
+        "name": "dateTo",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "结束日期，格式 YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "活动类型：1 线下，2 线上"
+      },
+      {
+        "name": "qs",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "按活动名称关键词过滤"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "返回条数（1-50）"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "title",
+      "time",
+      "eventType",
+      "city",
+      "location",
+      "organizer",
+      "url"
+    ],
+    "domain": "www.huodongxing.com",
+    "example": "opencli huodongxing events -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "hupu/detail",
     "site": "hupu",
     "name": "detail",
@@ -17009,6 +18785,39 @@
     "example": "opencli hupu like <tid> <pid> --fid <fid> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "hupu/login",
+    "site": "hupu",
+    "name": "login",
+    "aliases": [],
+    "description": "Open hupu login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "username"
+    ],
+    "domain": "hupu.com",
+    "example": "opencli hupu login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "hupu/mentions",
@@ -17254,6 +19063,27 @@
     "example": "opencli hupu unlike <tid> <pid> --fid <fid> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "hupu/whoami",
+    "site": "hupu",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in hupu account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "username"
+    ],
+    "domain": "hupu.com",
+    "example": "opencli hupu whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "imdb/person",
@@ -17948,6 +19778,40 @@
     "siteSession": null
   },
   {
+    "command": "instagram/login",
+    "site": "instagram",
+    "name": "login",
+    "aliases": [],
+    "description": "Open instagram login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "full_name"
+    ],
+    "domain": "instagram.com",
+    "example": "opencli instagram login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "instagram/note",
     "site": "instagram",
     "name": "note",
@@ -18452,6 +20316,28 @@
     "siteSession": null
   },
   {
+    "command": "instagram/whoami",
+    "site": "instagram",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in instagram account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "full_name"
+    ],
+    "domain": "instagram.com",
+    "example": "opencli instagram whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "jd/add-cart",
     "site": "jd",
     "name": "add-cart",
@@ -18600,6 +20486,39 @@
     "siteSession": null
   },
   {
+    "command": "jd/login",
+    "site": "jd",
+    "name": "login",
+    "aliases": [],
+    "description": "Open jd login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "pin",
+      "nickname"
+    ],
+    "domain": "jd.com",
+    "example": "opencli jd login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "jd/reviews",
     "site": "jd",
     "name": "reviews",
@@ -18686,6 +20605,27 @@
     "siteSession": null
   },
   {
+    "command": "jd/whoami",
+    "site": "jd",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in jd account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "pin",
+      "nickname"
+    ],
+    "domain": "jd.com",
+    "example": "opencli jd whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "jianyu/detail",
     "site": "jianyu",
     "name": "detail",
@@ -18729,6 +20669,39 @@
     "example": "opencli jianyu detail <url> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "jianyu/login",
+    "site": "jianyu",
+    "name": "login",
+    "aliases": [],
+    "description": "Open jianyu login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "jianyu360.cn",
+    "example": "opencli jianyu login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "jianyu/search",
@@ -18785,6 +20758,27 @@
     "example": "opencli jianyu search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "jianyu/whoami",
+    "site": "jianyu",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in jianyu account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "jianyu360.cn",
+    "example": "opencli jianyu whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "jike/comment",
@@ -18920,6 +20914,40 @@
     "example": "opencli jike like <id> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "jike/login",
+    "site": "jike",
+    "name": "login",
+    "aliases": [],
+    "description": "Open jike login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name",
+      "username"
+    ],
+    "domain": "web.okjike.com",
+    "example": "opencli jike login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "jike/notifications",
@@ -19161,6 +21189,28 @@
     "siteSession": null
   },
   {
+    "command": "jike/whoami",
+    "site": "jike",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in jike account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name",
+      "username"
+    ],
+    "domain": "web.okjike.com",
+    "example": "opencli jike whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "jimeng/generate",
     "site": "jimeng",
     "name": "generate",
@@ -19246,6 +21296,39 @@
     "siteSession": null
   },
   {
+    "command": "jimeng/login",
+    "site": "jimeng",
+    "name": "login",
+    "aliases": [],
+    "description": "Open jimeng login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name"
+    ],
+    "domain": "jimeng.jianying.com",
+    "example": "opencli jimeng login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "jimeng/new",
     "site": "jimeng",
     "name": "new",
@@ -19263,6 +21346,27 @@
     "example": "opencli jimeng new -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "jimeng/whoami",
+    "site": "jimeng",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in jimeng account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name"
+    ],
+    "domain": "jimeng.jianying.com",
+    "example": "opencli jimeng whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "jimeng/workspaces",
@@ -19624,6 +21728,58 @@
     "example": "opencli ke ershoufang -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "ke/login",
+    "site": "ke",
+    "name": "login",
+    "aliases": [],
+    "description": "Open ke login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "username"
+    ],
+    "domain": "ke.com",
+    "example": "opencli ke login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "ke/whoami",
+    "site": "ke",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in ke account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "username"
+    ],
+    "domain": "ke.com",
+    "example": "opencli ke whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "ke/xiaoqu",
@@ -20101,6 +22257,39 @@
     ],
     "domain": "kimi.com",
     "example": "opencli kimi idb-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "kimi/login",
+    "site": "kimi",
+    "name": "login",
+    "aliases": [],
+    "description": "Open kimi login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "kimi.com",
+    "example": "opencli kimi login -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -20769,6 +22958,27 @@
     "siteSession": "persistent"
   },
   {
+    "command": "kimi/whoami",
+    "site": "kimi",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in kimi account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "kimi.com",
+    "example": "opencli kimi whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "lesswrong/comments",
     "site": "lesswrong",
     "name": "comments",
@@ -21429,6 +23639,40 @@
     "siteSession": null
   },
   {
+    "command": "linkedin-learning/login",
+    "site": "linkedin-learning",
+    "name": "login",
+    "aliases": [],
+    "description": "Open linkedin-learning login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "public_id",
+      "plain_id",
+      "name"
+    ],
+    "domain": "linkedin.com",
+    "example": "opencli linkedin-learning login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "linkedin-learning/search",
     "site": "linkedin-learning",
     "name": "search",
@@ -21510,6 +23754,28 @@
     "example": "opencli linkedin-learning trending -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "linkedin-learning/whoami",
+    "site": "linkedin-learning",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in linkedin-learning account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "public_id",
+      "plain_id",
+      "name"
+    ],
+    "domain": "linkedin.com",
+    "example": "opencli linkedin-learning whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "linkedin/connect",
@@ -21692,6 +23958,40 @@
     "example": "opencli linkedin jobs-preferences -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "linkedin/login",
+    "site": "linkedin",
+    "name": "login",
+    "aliases": [],
+    "description": "Open linkedin login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "public_id",
+      "plain_id",
+      "name"
+    ],
+    "domain": "www.linkedin.com",
+    "example": "opencli linkedin login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "linkedin/people-search",
@@ -22625,6 +24925,28 @@
     "siteSession": null
   },
   {
+    "command": "linkedin/whoami",
+    "site": "linkedin",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in linkedin account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "public_id",
+      "plain_id",
+      "name"
+    ],
+    "domain": "www.linkedin.com",
+    "example": "opencli linkedin whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "linux-do/categories",
     "site": "linux-do",
     "name": "categories",
@@ -22781,6 +25103,40 @@
     "example": "opencli linux-do feed -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "linux-do/login",
+    "site": "linux-do",
+    "name": "login",
+    "aliases": [],
+    "description": "Open linux-do login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "name"
+    ],
+    "domain": "linux.do",
+    "example": "opencli linux-do login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "linux-do/search",
@@ -23018,6 +25374,28 @@
     "example": "opencli linux-do user-topics <username> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "linux-do/whoami",
+    "site": "linux-do",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in linux-do account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "username",
+      "name"
+    ],
+    "domain": "linux.do",
+    "example": "opencli linux-do whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "lobsters/active",
@@ -23298,6 +25676,40 @@
     "siteSession": null
   },
   {
+    "command": "maimai/login",
+    "site": "maimai",
+    "name": "login",
+    "aliases": [],
+    "description": "Open maimai login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name",
+      "company"
+    ],
+    "domain": "maimai.cn",
+    "example": "opencli maimai login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "maimai/search-talents",
     "site": "maimai",
     "name": "search-talents",
@@ -23478,6 +25890,28 @@
     "siteSession": null
   },
   {
+    "command": "maimai/whoami",
+    "site": "maimai",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in maimai account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name",
+      "company"
+    ],
+    "domain": "maimai.cn",
+    "example": "opencli maimai whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "manus/connectors",
     "site": "manus",
     "name": "connectors",
@@ -23572,6 +26006,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "manus/login",
+    "site": "manus",
+    "name": "login",
+    "aliases": [],
+    "description": "Open manus login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "manus.im",
+    "example": "opencli manus login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "manus/read",
     "site": "manus",
     "name": "read",
@@ -23638,6 +26105,27 @@
     ],
     "domain": "manus.im",
     "example": "opencli manus status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "manus/whoami",
+    "site": "manus",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in manus account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "manus.im",
+    "example": "opencli manus whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -24569,6 +27057,39 @@
     "siteSession": null
   },
   {
+    "command": "notebooklm/login",
+    "site": "notebooklm",
+    "name": "login",
+    "aliases": [],
+    "description": "Open notebooklm login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "name",
+      "authuser"
+    ],
+    "domain": "google.com",
+    "example": "opencli notebooklm login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "notebooklm/note-list",
     "site": "notebooklm",
     "name": "note-list",
@@ -24831,6 +27352,27 @@
     "siteSession": null
   },
   {
+    "command": "notebooklm/whoami",
+    "site": "notebooklm",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in notebooklm account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "name",
+      "authuser"
+    ],
+    "domain": "google.com",
+    "example": "opencli notebooklm whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "notebooklm/write-note",
     "site": "notebooklm",
     "name": "write-note",
@@ -25090,6 +27632,39 @@
     "example": "opencli nowcoder jobs -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "nowcoder/login",
+    "site": "nowcoder",
+    "name": "login",
+    "aliases": [],
+    "description": "Open nowcoder login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "nowcoder.com",
+    "example": "opencli nowcoder login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "nowcoder/notifications",
@@ -25492,6 +28067,27 @@
     "example": "opencli nowcoder trending -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "nowcoder/whoami",
+    "site": "nowcoder",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in nowcoder account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "nowcoder.com",
+    "example": "opencli nowcoder whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "npm/downloads",
@@ -27201,6 +29797,39 @@
     "siteSession": null
   },
   {
+    "command": "pixiv/login",
+    "site": "pixiv",
+    "name": "login",
+    "aliases": [],
+    "description": "Open pixiv login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "pixiv.net",
+    "example": "opencli pixiv login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "pixiv/ranking",
     "site": "pixiv",
     "name": "ranking",
@@ -27391,6 +30020,59 @@
     "siteSession": null
   },
   {
+    "command": "pixiv/whoami",
+    "site": "pixiv",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in pixiv account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "pixiv.net",
+    "example": "opencli pixiv whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "powerchina/login",
+    "site": "powerchina",
+    "name": "login",
+    "aliases": [],
+    "description": "Open powerchina login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "powerchina.cn",
+    "example": "opencli powerchina login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "powerchina/search",
     "site": "powerchina",
     "name": "search",
@@ -27434,6 +30116,26 @@
     "example": "opencli powerchina search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "powerchina/whoami",
+    "site": "powerchina",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in powerchina account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "powerchina.cn",
+    "example": "opencli powerchina whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "producthunt/browse",
@@ -28873,6 +31575,38 @@
     "siteSession": null
   },
   {
+    "command": "quark/login",
+    "site": "quark",
+    "name": "login",
+    "aliases": [],
+    "description": "Open quark login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "nickname"
+    ],
+    "domain": "quark.cn",
+    "example": "opencli quark login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "quark/ls",
     "site": "quark",
     "name": "ls",
@@ -29228,6 +31962,26 @@
     "siteSession": null
   },
   {
+    "command": "quark/whoami",
+    "site": "quark",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in quark account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "nickname"
+    ],
+    "domain": "quark.cn",
+    "example": "opencli quark whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "qwen/ask",
     "site": "qwen",
     "name": "ask",
@@ -29451,6 +32205,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "qwen/login",
+    "site": "qwen",
+    "name": "login",
+    "aliases": [],
+    "description": "Open qwen login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "qwen.ai",
+    "example": "opencli qwen login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "qwen/new",
     "site": "qwen",
     "name": "new",
@@ -29577,6 +32364,27 @@
     ],
     "domain": "www.qianwen.com",
     "example": "opencli qwen status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "qwen/whoami",
+    "site": "qwen",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in qwen account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "qwen.ai",
+    "example": "opencli qwen whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -29749,6 +32557,39 @@
     "siteSession": null
   },
   {
+    "command": "reddit/login",
+    "site": "reddit",
+    "name": "login",
+    "aliases": [],
+    "description": "Open reddit login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "username",
+      "id"
+    ],
+    "domain": "reddit.com",
+    "example": "opencli reddit login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "reddit/popular",
     "site": "reddit",
     "name": "popular",
@@ -29885,7 +32726,11 @@
       "type",
       "author",
       "score",
-      "text"
+      "text",
+      "post_hint",
+      "url_overridden_by_dest",
+      "preview_image_url",
+      "gallery_urls"
     ],
     "domain": "reddit.com",
     "example": "opencli reddit read <post-id> -f yaml",
@@ -30600,6 +33445,39 @@
     "siteSession": null
   },
   {
+    "command": "rednote/login",
+    "site": "rednote",
+    "name": "login",
+    "aliases": [],
+    "description": "Open rednote login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "rednote.com",
+    "example": "opencli rednote login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "rednote/note",
     "site": "rednote",
     "name": "note",
@@ -30762,6 +33640,27 @@
     "siteSession": null
   },
   {
+    "command": "rednote/whoami",
+    "site": "rednote",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in rednote account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "rednote.com",
+    "example": "opencli rednote whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "rest-countries/country",
     "site": "rest-countries",
     "name": "country",
@@ -30917,6 +33816,39 @@
     "siteSession": null
   },
   {
+    "command": "reuters/login",
+    "site": "reuters",
+    "name": "login",
+    "aliases": [],
+    "description": "Open reuters login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "subscribed"
+    ],
+    "domain": "reuters.com",
+    "example": "opencli reuters login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "reuters/search",
     "site": "reuters",
     "name": "search",
@@ -30960,6 +33892,27 @@
     "example": "opencli reuters search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "reuters/whoami",
+    "site": "reuters",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in reuters account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "subscribed"
+    ],
+    "domain": "reuters.com",
+    "example": "opencli reuters whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "rfc/rfc",
@@ -31394,6 +34347,2014 @@
     "example": "opencli sinafinance stock-rank -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "slock/attachment-download",
+    "site": "slock",
+    "name": "attachment-download",
+    "aliases": [],
+    "description": "Download an attachment to a local file. Resolves a signed CDN URL in the page, then fetches bytes node-side (no CORS).",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "attachmentId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Attachment UUID"
+      },
+      {
+        "name": "out",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Local path to write to. Defaults to ./<attachmentId>.bin"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server slug"
+      }
+    ],
+    "columns": [
+      "attachmentId",
+      "out",
+      "sizeBytes"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock attachment-download <attachmentId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/attachment-upload",
+    "site": "slock",
+    "name": "attachment-upload",
+    "aliases": [],
+    "description": "Upload a local file to Slock attachments. Prints the attachmentId for use with `message-send --attach`.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "file",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Local file path to upload (single file; max 50 MB)"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name — server requires the attachment be scoped to a channel"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server slug"
+      }
+    ],
+    "columns": [
+      "attachmentId",
+      "filename",
+      "mimeType",
+      "sizeBytes"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock attachment-upload <file> <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/attachment-url",
+    "site": "slock",
+    "name": "attachment-url",
+    "aliases": [],
+    "description": "Get a short-lived signed CDN URL for an attachment (does not download bytes).",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "attachmentId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Attachment UUID"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server slug"
+      }
+    ],
+    "columns": [
+      "attachmentId",
+      "url",
+      "expiresAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock attachment-url <attachmentId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/bookmark-add",
+    "site": "slock",
+    "name": "bookmark-add",
+    "aliases": [],
+    "description": "Bookmark a message (POST /channels/saved). Requires full messageId UUID.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "messageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full messageId UUID (short ids rejected)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "saved"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock bookmark-add <messageId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/bookmark-list",
+    "site": "slock",
+    "name": "bookmark-list",
+    "aliases": [],
+    "description": "List bookmarks (saved messages) in the active server",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 50,
+        "help": "Max results"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Offset"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "messageId",
+      "content",
+      "savedAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock bookmark-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/bookmark-remove",
+    "site": "slock",
+    "name": "bookmark-remove",
+    "aliases": [],
+    "description": "Remove a bookmark (DELETE /channels/saved/:messageId). 404 is treated as already-removed.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "messageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full messageId UUID"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "removed",
+      "note"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock bookmark-remove <messageId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-archive",
+    "site": "slock",
+    "name": "channel-archive",
+    "aliases": [],
+    "description": "Archive a channel — admin only (POST /channels/:id/archive)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "id",
+      "archivedAt",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-archive <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-create",
+    "site": "slock",
+    "name": "channel-create",
+    "aliases": [],
+    "description": "Create a channel — admin only (POST /channels/). Public unless --private.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "name",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Channel name"
+      },
+      {
+        "name": "description",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Channel description / topic (≤500 chars)"
+      },
+      {
+        "name": "private",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Create a private channel instead of public"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "type",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-create <name> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-files",
+    "site": "slock",
+    "name": "channel-files",
+    "aliases": [],
+    "description": "List files shared in a channel (GET /channels/:id/files)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 50,
+        "help": "Max files"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "filename",
+      "mimeType",
+      "sizeBytes",
+      "messageId",
+      "createdAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-files <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-info",
+    "site": "slock",
+    "name": "channel-info",
+    "aliases": [],
+    "description": "Show one channel's details (GET /channels/:id)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "type",
+      "topic",
+      "joined",
+      "archivedAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-info <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-join",
+    "site": "slock",
+    "name": "channel-join",
+    "aliases": [],
+    "description": "Join a public channel (POST /channels/:id/join)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "id",
+      "archivedAt",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-join <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-leave",
+    "site": "slock",
+    "name": "channel-leave",
+    "aliases": [],
+    "description": "Leave a channel (POST /channels/:id/leave)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "id",
+      "archivedAt",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-leave <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-list",
+    "site": "slock",
+    "name": "channel-list",
+    "aliases": [],
+    "description": "List channels in the active slock server",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server (slug or id) for this call"
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "topic"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-mark",
+    "site": "slock",
+    "name": "channel-mark",
+    "aliases": [],
+    "description": "Mark a channel read (default), read up to --seq, or --unread.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "seq",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Mark read up to this seq (omit for read-all)"
+      },
+      {
+        "name": "unread",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Mark the channel unread instead of read"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "action",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-mark <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-members",
+    "site": "slock",
+    "name": "channel-members",
+    "aliases": [],
+    "description": "List members of a channel",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server (slug or id)"
+      }
+    ],
+    "columns": [
+      "userId",
+      "name",
+      "kind",
+      "role"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-members <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/channel-unarchive",
+    "site": "slock",
+    "name": "channel-unarchive",
+    "aliases": [],
+    "description": "Unarchive a channel — admin only (POST /channels/:id/unarchive). #name lookups exclude archived channels; pass the channelId UUID for archived ones.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "id",
+      "archivedAt",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock channel-unarchive <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/dm-list",
+    "site": "slock",
+    "name": "dm-list",
+    "aliases": [],
+    "description": "List DM channels in the active server (GET /channels/dm)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server (slug or id)"
+      }
+    ],
+    "columns": [
+      "channelId",
+      "peerName",
+      "peerId",
+      "createdAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock dm-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/inbox",
+    "site": "slock",
+    "name": "inbox",
+    "aliases": [],
+    "description": "List unified inbox items (channels, DMs, followed threads) that need attention.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "filter",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all | unread | mentions"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 30,
+        "help": "Max items (server caps at 100)"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "kind",
+      "id",
+      "name",
+      "unreadCount",
+      "hasMention",
+      "lastActivityAt",
+      "preview"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock inbox -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/inbox-done",
+    "site": "slock",
+    "name": "inbox-done",
+    "aliases": [],
+    "description": "Mark one chat as done / clear it from the inbox (POST /channels/inbox/done)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "channel",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock inbox-done <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/inbox-read-all",
+    "site": "slock",
+    "name": "inbox-read-all",
+    "aliases": [],
+    "description": "Mark the entire inbox as read (POST /channels/inbox/read-all)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "result",
+      "markedCount"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock inbox-read-all -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/login",
+    "site": "slock",
+    "name": "login",
+    "aliases": [],
+    "description": "Open slock login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "id",
+      "name",
+      "email"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/message-read",
+    "site": "slock",
+    "name": "message-read",
+    "aliases": [],
+    "description": "Read messages in a channel or thread. Thread form: \"#channel:msgIdOrShort\". Use --after seq|UUID for cursor.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID, \"#name\", or \"#channel:msgIdOrShort\""
+      },
+      {
+        "name": "after",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Cursor: seq number or messageId UUID (exclusive)"
+      },
+      {
+        "name": "before",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "seq to page before"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 50,
+        "help": "Max messages"
+      },
+      {
+        "name": "no-threads",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Skip /threads enrichment"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "seq",
+      "createdAt",
+      "senderName",
+      "content",
+      "threadChannelId",
+      "replyCount",
+      "unreadCount",
+      "lastReplyAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock message-read <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/message-search",
+    "site": "slock",
+    "name": "message-search",
+    "aliases": [],
+    "description": "Search messages",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search query"
+      },
+      {
+        "name": "channel",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Restrict to a channel (UUID or #name)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 50,
+        "help": "Max results"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "channelId",
+      "createdAt",
+      "senderName",
+      "content"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock message-search <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/message-send",
+    "site": "slock",
+    "name": "message-send",
+    "aliases": [],
+    "description": "Send a message to a channel, DM, or thread (content sent verbatim)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "target",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "\"#channel\", \"#channel:msgIdOrShort\", \"dm:@name\", \"dm:<uuid>\", or channel UUID"
+      },
+      {
+        "name": "content",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Message body (sent verbatim, no marker)"
+      },
+      {
+        "name": "dry-run",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Print the planned payload without sending"
+      },
+      {
+        "name": "as-task",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Create the message as a task (asTask)"
+      },
+      {
+        "name": "attach",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Comma-separated attachmentId UUIDs (upload separately first)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server (slug or id)"
+      }
+    ],
+    "columns": [
+      "target",
+      "channelId",
+      "content",
+      "result",
+      "messageId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock message-send <target> <content> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/reaction-add",
+    "site": "slock",
+    "name": "reaction-add",
+    "aliases": [],
+    "description": "Add an emoji reaction to a message (POST /messages/:id/reactions). Idempotent server-side.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "messageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full messageId UUID (short ids rejected)"
+      },
+      {
+        "name": "emoji",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "A single unicode emoji, e.g. 👍"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "emoji",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock reaction-add <messageId> <emoji> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/reaction-remove",
+    "site": "slock",
+    "name": "reaction-remove",
+    "aliases": [],
+    "description": "Remove your emoji reaction from a message (DELETE /messages/:id/reactions).",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "messageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full messageId UUID (short ids rejected)"
+      },
+      {
+        "name": "emoji",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "The unicode emoji to remove, e.g. 👍"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "emoji",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock reaction-remove <messageId> <emoji> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/server-list",
+    "site": "slock",
+    "name": "server-list",
+    "aliases": [],
+    "description": "List slock servers you belong to; marks active per localStorage slug",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "id",
+      "slug",
+      "name",
+      "active"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock server-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/server-use",
+    "site": "slock",
+    "name": "server-use",
+    "aliases": [],
+    "description": "Set the active slock server (writes localStorage.slock_last_server_slug)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "input",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "server slug, \"#slug\", or UUID id"
+      }
+    ],
+    "columns": [
+      "id",
+      "slug",
+      "name",
+      "written"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock server-use <input> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-claim",
+    "site": "slock",
+    "name": "task-claim",
+    "aliases": [],
+    "description": "Claim a chat task (PATCH /tasks/:id/claim). Requires full task UUID (= message id).",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "taskId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full task UUID (= message id; short ids rejected)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "taskId",
+      "taskStatus",
+      "assigneeId",
+      "taskNumber"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-claim <taskId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-convert",
+    "site": "slock",
+    "name": "task-convert",
+    "aliases": [],
+    "description": "Convert a message into a chat task (POST /tasks/convert-message). Accepts a message UUID or \"#channel:shortId\".",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "messageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full message UUID, or \"#channel:shortId\" (short id expanded via /messages/context)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "taskNumber",
+      "title",
+      "taskStatus",
+      "channelId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-convert <messageId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-create",
+    "site": "slock",
+    "name": "task-create",
+    "aliases": [],
+    "description": "Create a task in a channel (single title; batch 1-50 is server-supported but client surface is single — see backlog R4).",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "title",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Task title (single; batch TODO via R4)"
+      },
+      {
+        "name": "desc",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Optional description body for the task"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "taskNumber",
+      "title",
+      "taskStatus",
+      "channelId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-create <channel> <title> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-delete",
+    "site": "slock",
+    "name": "task-delete",
+    "aliases": [],
+    "description": "Delete a chat task (DELETE /tasks/:taskId). Requires --confirm — destructive, irreversible.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "taskId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full task UUID (= message id; short ids rejected)"
+      },
+      {
+        "name": "confirm",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Required acknowledgement: deletion is irreversible"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "taskId",
+      "deleted"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-delete <taskId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-get",
+    "site": "slock",
+    "name": "task-get",
+    "aliases": [],
+    "description": "Fetch a task by channel + taskNumber (GET /tasks/channel/:channelId/number/:taskNumber).",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "number",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "taskNumber (per-channel integer, as shown in \"task #N\")"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "taskNumber",
+      "title",
+      "taskStatus",
+      "assigneeId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-get <channel> <number> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-list",
+    "site": "slock",
+    "name": "task-list",
+    "aliases": [],
+    "description": "List tasks (chat tasks = messages with task fields) attached to a channel. Optional --status filter.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "channel",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "channelId UUID or #name"
+      },
+      {
+        "name": "status",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Filter by status: todo|in_progress|in_review|done|closed"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "taskNumber",
+      "title",
+      "taskStatus",
+      "assigneeId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-list <channel> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-list-server",
+    "site": "slock",
+    "name": "task-list-server",
+    "aliases": [],
+    "description": "List tasks across all channels in the active server (GET /tasks/server). Optional --status filter.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "status",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Filter by status: todo|in_progress|in_review|done|closed"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "id",
+      "taskNumber",
+      "title",
+      "taskStatus",
+      "channelId",
+      "assigneeId"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-list-server -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-status",
+    "site": "slock",
+    "name": "task-status",
+    "aliases": [],
+    "description": "Set a task's status (PATCH /tasks/:taskId/status, body {status}). One of todo|in_progress|in_review|done|closed.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "taskId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full task UUID (= message id; short ids rejected)"
+      },
+      {
+        "name": "status",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "One of: todo|in_progress|in_review|done|closed"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "taskId",
+      "taskStatus",
+      "assigneeId",
+      "taskNumber"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-status <taskId> <status> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/task-unclaim",
+    "site": "slock",
+    "name": "task-unclaim",
+    "aliases": [],
+    "description": "Release ownership of a chat task (PATCH /tasks/:id/unclaim).",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "taskId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full task UUID (= message id; short ids rejected)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "taskId",
+      "taskStatus",
+      "assigneeId",
+      "taskNumber"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock task-unclaim <taskId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/thread-done",
+    "site": "slock",
+    "name": "thread-done",
+    "aliases": [],
+    "description": "Mark a thread as done / hide it from the active list (POST /channels/threads/done)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "threadChannelId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Thread channel UUID (from thread-list / message-read)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "threadChannelId",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock thread-done <threadChannelId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/thread-follow",
+    "site": "slock",
+    "name": "thread-follow",
+    "aliases": [],
+    "description": "Follow the thread on a parent message (POST /channels/threads/follow)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "parentMessageId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full parent messageId UUID (short ids rejected)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "parentMessageId",
+      "threadChannelId",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock thread-follow <parentMessageId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/thread-list",
+    "site": "slock",
+    "name": "thread-list",
+    "aliases": [],
+    "description": "List followed threads in the active server (GET /channels/threads/followed)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "threadChannelId",
+      "parentMessageId",
+      "parentChannelName",
+      "unreadCount",
+      "replyCount",
+      "lastReplyAt"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock thread-list -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/thread-undone",
+    "site": "slock",
+    "name": "thread-undone",
+    "aliases": [],
+    "description": "Restore a done thread to the active list (POST /channels/threads/undone)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "threadChannelId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Thread channel UUID (from thread-list / message-read)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "threadChannelId",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock thread-undone <threadChannelId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/thread-unfollow",
+    "site": "slock",
+    "name": "thread-unfollow",
+    "aliases": [],
+    "description": "Stop following a thread (POST /channels/threads/unfollow)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "threadChannelId",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Thread channel UUID (from thread-list / message-read)"
+      },
+      {
+        "name": "server",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Override active server"
+      }
+    ],
+    "columns": [
+      "threadChannelId",
+      "result"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock thread-unfollow <threadChannelId> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/unread-summary",
+    "site": "slock",
+    "name": "unread-summary",
+    "aliases": [],
+    "description": "Global unread counts across every server you belong to.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "serverId",
+      "slug",
+      "name",
+      "unreadCount"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock unread-summary -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "slock/whoami",
+    "site": "slock",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in slock account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "id",
+      "name",
+      "email"
+    ],
+    "domain": "app.slock.ai",
+    "example": "opencli slock whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "smzdm/search",
@@ -32686,6 +37647,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "suno/login",
+    "site": "suno",
+    "name": "login",
+    "aliases": [],
+    "description": "Open suno login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "suno.com",
+    "example": "opencli suno login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "suno/status",
     "site": "suno",
     "name": "status",
@@ -32704,6 +37698,27 @@
     ],
     "domain": "suno.com",
     "example": "opencli suno status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "suno/whoami",
+    "site": "suno",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in suno account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "suno.com",
+    "example": "opencli suno whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -32824,6 +37839,39 @@
     "siteSession": null
   },
   {
+    "command": "taobao/login",
+    "site": "taobao",
+    "name": "login",
+    "aliases": [],
+    "description": "Open taobao login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "taobao.com",
+    "example": "opencli taobao login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "taobao/reviews",
     "site": "taobao",
     "name": "reviews",
@@ -32925,6 +37973,27 @@
     "example": "opencli taobao search <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "taobao/whoami",
+    "site": "taobao",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in taobao account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "taobao.com",
+    "example": "opencli taobao whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "tdx/hot-rank",
@@ -33486,6 +38555,40 @@
     "siteSession": null
   },
   {
+    "command": "tiktok/login",
+    "site": "tiktok",
+    "name": "login",
+    "aliases": [],
+    "description": "Open tiktok login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "sec_uid",
+      "username",
+      "nickname"
+    ],
+    "domain": "tiktok.com",
+    "example": "opencli tiktok login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "tiktok/notifications",
     "site": "tiktok",
     "name": "notifications",
@@ -33790,6 +38893,28 @@
     "siteSession": null
   },
   {
+    "command": "tiktok/whoami",
+    "site": "tiktok",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in tiktok account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "sec_uid",
+      "username",
+      "nickname"
+    ],
+    "domain": "tiktok.com",
+    "example": "opencli tiktok whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "toutiao/articles",
     "site": "toutiao",
     "name": "articles",
@@ -33859,6 +38984,60 @@
     "example": "opencli toutiao hot -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "toutiao/login",
+    "site": "toutiao",
+    "name": "login",
+    "aliases": [],
+    "description": "Open toutiao login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "toutiao.com",
+    "example": "opencli toutiao login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "toutiao/whoami",
+    "site": "toutiao",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in toutiao account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "toutiao.com",
+    "example": "opencli toutiao whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "trae-cn/activity",
@@ -35734,7 +40913,8 @@
       "created_at",
       "url",
       "has_media",
-      "media_urls"
+      "media_urls",
+      "media_posters"
     ],
     "domain": "x.com",
     "example": "opencli twitter bookmark-folder <folder-id> -f yaml",
@@ -35803,7 +40983,8 @@
       "created_at",
       "url",
       "has_media",
-      "media_urls"
+      "media_urls",
+      "media_posters"
     ],
     "domain": "x.com",
     "example": "opencli twitter bookmarks -f yaml",
@@ -36216,7 +41397,8 @@
       "created_at",
       "url",
       "has_media",
-      "media_urls"
+      "media_urls",
+      "media_posters"
     ],
     "domain": "x.com",
     "example": "opencli twitter likes -f yaml",
@@ -36594,6 +41776,7 @@
       "url",
       "has_media",
       "media_urls",
+      "media_posters",
       "card",
       "quoted_tweet"
     ],
@@ -37119,6 +42302,7 @@
       "url",
       "has_media",
       "media_urls",
+      "media_posters",
       "card",
       "quoted_tweet"
     ],
@@ -37178,6 +42362,7 @@
       "url",
       "has_media",
       "media_urls",
+      "media_posters",
       "card",
       "quoted_tweet"
     ],
@@ -37243,6 +42428,7 @@
       "url",
       "has_media",
       "media_urls",
+      "media_posters",
       "card",
       "quoted_tweet"
     ],
@@ -37336,6 +42522,7 @@
       "url",
       "has_media",
       "media_urls",
+      "media_posters",
       "quoted_tweet"
     ],
     "domain": "x.com",
@@ -37512,7 +42699,7 @@
     "domain": "x.com",
     "example": "opencli twitter whoami -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "uisdc/news",
@@ -37747,6 +42934,39 @@
     "siteSession": null
   },
   {
+    "command": "upwork/login",
+    "site": "upwork",
+    "name": "login",
+    "aliases": [],
+    "description": "Open upwork login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "ciphertext"
+    ],
+    "domain": "upwork.com",
+    "example": "opencli upwork login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "upwork/search",
     "site": "upwork",
     "name": "search",
@@ -37837,6 +43057,27 @@
     "siteSession": null
   },
   {
+    "command": "upwork/whoami",
+    "site": "upwork",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in upwork account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "ciphertext"
+    ],
+    "domain": "upwork.com",
+    "example": "opencli upwork whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "v2ex/daily",
     "site": "v2ex",
     "name": "daily",
@@ -37922,6 +43163,38 @@
     "example": "opencli v2ex latest -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "v2ex/login",
+    "site": "v2ex",
+    "name": "login",
+    "aliases": [],
+    "description": "Open v2ex login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "username"
+    ],
+    "domain": "v2ex.com",
+    "example": "opencli v2ex login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "v2ex/me",
@@ -38206,6 +43479,26 @@
     "siteSession": null
   },
   {
+    "command": "v2ex/whoami",
+    "site": "v2ex",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in v2ex account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "username"
+    ],
+    "domain": "v2ex.com",
+    "example": "opencli v2ex whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "wanfang/search",
     "site": "wanfang",
     "name": "search",
@@ -38373,6 +43666,39 @@
     "siteSession": null
   },
   {
+    "command": "wechat-channels/login",
+    "site": "wechat-channels",
+    "name": "login",
+    "aliases": [],
+    "description": "Open wechat-channels login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "channels.weixin.qq.com",
+    "example": "opencli wechat-channels login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "wechat-channels/publish",
     "site": "wechat-channels",
     "name": "publish",
@@ -38462,6 +43788,27 @@
     "example": "opencli wechat-channels publish <video> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "wechat-channels/whoami",
+    "site": "wechat-channels",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in wechat-channels account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "channels.weixin.qq.com",
+    "example": "opencli wechat-channels whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "weibo/comments",
@@ -38656,6 +44003,40 @@
     "example": "opencli weibo hot -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "weibo/login",
+    "site": "weibo",
+    "name": "login",
+    "aliases": [],
+    "description": "Open weibo login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name",
+      "profile_url"
+    ],
+    "domain": "weibo.com",
+    "example": "opencli weibo login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "weibo/me",
@@ -38912,6 +44293,28 @@
     "example": "opencli weibo user-posts <id> -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "weibo/whoami",
+    "site": "weibo",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in weibo account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "screen_name",
+      "profile_url"
+    ],
+    "domain": "weibo.com",
+    "example": "opencli weibo whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "weixin/create-draft",
@@ -39806,6 +45209,39 @@
     "siteSession": null
   },
   {
+    "command": "weread/login",
+    "site": "weread",
+    "name": "login",
+    "aliases": [],
+    "description": "Open weread login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "weread.qq.com",
+    "example": "opencli weread login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "weread/notebooks",
     "site": "weread",
     "name": "notebooks",
@@ -39986,6 +45422,27 @@
     "example": "opencli weread shelf -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "weread/whoami",
+    "site": "weread",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in weread account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "weread.qq.com",
+    "example": "opencli weread whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "wikidata/entity",
@@ -40560,6 +46017,39 @@
     "siteSession": null
   },
   {
+    "command": "xianyu/login",
+    "site": "xianyu",
+    "name": "login",
+    "aliases": [],
+    "description": "Open xianyu login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "goofish.com",
+    "example": "opencli xianyu login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "xianyu/messages",
     "site": "xianyu",
     "name": "messages",
@@ -40841,6 +46331,27 @@
     "siteSession": null
   },
   {
+    "command": "xianyu/whoami",
+    "site": "xianyu",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in xianyu account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "goofish.com",
+    "example": "opencli xianyu whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "xiaoe/catalog",
     "site": "xiaoe",
     "name": "catalog",
@@ -40962,6 +46473,39 @@
     "siteSession": null
   },
   {
+    "command": "xiaoe/login",
+    "site": "xiaoe",
+    "name": "login",
+    "aliases": [],
+    "description": "Open xiaoe login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "xiaoe-tech.com",
+    "example": "opencli xiaoe login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "xiaoe/play-url",
     "site": "xiaoe",
     "name": "play-url",
@@ -40991,6 +46535,84 @@
     ],
     "domain": "h5.xet.citv.cn",
     "example": "opencli xiaoe play-url <url> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "xiaoe/whoami",
+    "site": "xiaoe",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in xiaoe account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "xiaoe-tech.com",
+    "example": "opencli xiaoe whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "xiaohongshu/ask",
+    "site": "xiaohongshu",
+    "name": "ask",
+    "aliases": [],
+    "description": "Ask 小红书点点 and return the answer with citation sources.",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Question for 点点"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 90,
+        "help": "Seconds to wait for the 点点 answer"
+      },
+      {
+        "name": "source-limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 10,
+        "help": "Maximum citation sources to return"
+      }
+    ],
+    "columns": [
+      "query",
+      "answer",
+      "source_count",
+      "source_total_text",
+      "sources_summary",
+      "sources",
+      "warning",
+      "message_id",
+      "conversation_id"
+    ],
+    "domain": "www.xiaohongshu.com",
+    "example": "opencli xiaohongshu ask <query> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -41038,6 +46660,8 @@
     "columns": [
       "rank",
       "author",
+      "userId",
+      "profileUrl",
       "text",
       "likes",
       "time",
@@ -41513,6 +47137,37 @@
     "siteSession": null
   },
   {
+    "command": "xiaohongshu/follow",
+    "site": "xiaohongshu",
+    "name": "follow",
+    "aliases": [],
+    "description": "关注小红书用户 (profile UI automation)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "user-id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "User ID (e.g. 5d8f88dc0000000001005d3a) or profile URL"
+      }
+    ],
+    "columns": [
+      "status",
+      "user_id",
+      "url"
+    ],
+    "domain": "www.xiaohongshu.com",
+    "example": "opencli xiaohongshu follow <user-id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "xiaohongshu/login",
     "site": "xiaohongshu",
     "name": "login",
@@ -41630,16 +47285,6 @@
     "browser": true,
     "args": [
       {
-        "name": "title",
-        "type": "str",
-        "required": true,
-        "valueRequired": false,
-        "positional": false,
-        "choices": [],
-        "default": null,
-        "help": "笔记标题 (最多20字)"
-      },
-      {
         "name": "content",
         "type": "str",
         "required": true,
@@ -41648,6 +47293,16 @@
         "choices": [],
         "default": null,
         "help": "笔记正文"
+      },
+      {
+        "name": "title",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "笔记标题 (最多20字)"
       },
       {
         "name": "images",
@@ -41734,6 +47389,37 @@
     "siteSession": null
   },
   {
+    "command": "xiaohongshu/unfollow",
+    "site": "xiaohongshu",
+    "name": "unfollow",
+    "aliases": [],
+    "description": "取消关注小红书用户 (profile UI automation)",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "user-id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "User ID (e.g. 5d8f88dc0000000001005d3a) or profile URL"
+      }
+    ],
+    "columns": [
+      "status",
+      "user_id",
+      "url"
+    ],
+    "domain": "www.xiaohongshu.com",
+    "example": "opencli xiaohongshu unfollow <user-id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "xiaohongshu/user",
     "site": "xiaohongshu",
     "name": "user",
@@ -41795,7 +47481,7 @@
     "domain": "creator.xiaohongshu.com",
     "example": "opencli xiaohongshu whoami -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "xiaoyuzhou/download",
@@ -42356,6 +48042,38 @@
     "siteSession": null
   },
   {
+    "command": "xueqiu/login",
+    "site": "xueqiu",
+    "name": "login",
+    "aliases": [],
+    "description": "Open xueqiu login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "xueqiu.com",
+    "example": "opencli xueqiu login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "xueqiu/search",
     "site": "xueqiu",
     "name": "search",
@@ -42473,6 +48191,26 @@
     "example": "opencli xueqiu watchlist -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "xueqiu/whoami",
+    "site": "xueqiu",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in xueqiu account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id"
+    ],
+    "domain": "xueqiu.com",
+    "example": "opencli xueqiu whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "yahoo-finance/quote",
@@ -43539,6 +49277,38 @@
     "siteSession": null
   },
   {
+    "command": "youtube/login",
+    "site": "youtube",
+    "name": "login",
+    "aliases": [],
+    "description": "Open youtube login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "www.youtube.com",
+    "example": "opencli youtube login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "youtube/playlist",
     "site": "youtube",
     "name": "playlist",
@@ -43894,6 +49664,26 @@
     "siteSession": null
   },
   {
+    "command": "youtube/whoami",
+    "site": "youtube",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in youtube account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "name"
+    ],
+    "domain": "www.youtube.com",
+    "example": "opencli youtube whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "yuanbao/ask",
     "site": "yuanbao",
     "name": "ask",
@@ -44017,6 +49807,39 @@
     "siteSession": "persistent"
   },
   {
+    "command": "yuanbao/login",
+    "site": "yuanbao",
+    "name": "login",
+    "aliases": [],
+    "description": "Open yuanbao login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "yuanbao.tencent.com",
+    "example": "opencli yuanbao login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "yuanbao/new",
     "site": "yuanbao",
     "name": "new",
@@ -44115,6 +49938,27 @@
     ],
     "domain": "yuanbao.tencent.com",
     "example": "opencli yuanbao status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "yuanbao/whoami",
+    "site": "yuanbao",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in yuanbao account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "nickname"
+    ],
+    "domain": "yuanbao.tencent.com",
+    "example": "opencli yuanbao whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -44682,6 +50526,40 @@
     "siteSession": null
   },
   {
+    "command": "zhihu/login",
+    "site": "zhihu",
+    "name": "login",
+    "aliases": [],
+    "description": "Open zhihu login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "url_token",
+      "name",
+      "uid"
+    ],
+    "domain": "www.zhihu.com",
+    "example": "opencli zhihu login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "zhihu/question",
     "site": "zhihu",
     "name": "question",
@@ -44832,6 +50710,28 @@
     "siteSession": null
   },
   {
+    "command": "zhihu/whoami",
+    "site": "zhihu",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in zhihu account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "url_token",
+      "name",
+      "uid"
+    ],
+    "domain": "www.zhihu.com",
+    "example": "opencli zhihu whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "zlibrary/info",
     "site": "zlibrary",
     "name": "info",
@@ -44974,6 +50874,39 @@
     "example": "opencli zsxq groups -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "zsxq/login",
+    "site": "zsxq",
+    "name": "login",
+    "aliases": [],
+    "description": "Open zsxq login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "zsxq.com",
+    "example": "opencli zsxq login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "zsxq/search",
@@ -45132,5 +51065,26 @@
     "example": "opencli zsxq topics -f yaml",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "zsxq/whoami",
+    "site": "zsxq",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in zsxq account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "user_id",
+      "name"
+    ],
+    "domain": "zsxq.com",
+    "example": "opencli zsxq whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   }
 ]
