@@ -7679,6 +7679,71 @@
     "siteSession": "persistent"
   },
   {
+    "command": "chatgpt/deep-research-result",
+    "site": "chatgpt",
+    "name": "deep-research-result",
+    "aliases": [],
+    "description": "Read a completed ChatGPT Deep Research report from the conversation payload",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Conversation ID or full /c/<id> URL"
+      },
+      {
+        "name": "wait",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Wait until Deep Research completes or becomes extractable"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 120,
+        "help": "Max seconds to wait when --wait is true"
+      },
+      {
+        "name": "stable",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 6,
+        "help": "Seconds the report text must remain unchanged when --wait is true"
+      }
+    ],
+    "columns": [
+      "conversationId",
+      "status",
+      "report",
+      "sources",
+      "url",
+      "method",
+      "diagnostics"
+    ],
+    "domain": "chatgpt.com",
+    "example": "opencli chatgpt deep-research-result <id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "chatgpt/detail",
     "site": "chatgpt",
     "name": "detail",
@@ -7902,7 +7967,7 @@
     "site": "chatgpt",
     "name": "model",
     "aliases": [],
-    "description": "Switch ChatGPT web intelligence level (instant, medium, high, extra-high, pro; thinking aliases high)",
+    "description": "Switch ChatGPT web intelligence level (fast, balanced, advanced, very-high, pro)",
     "access": "write",
     "strategy": "cookie",
     "browser": true,
@@ -7914,15 +7979,30 @@
         "valueRequired": false,
         "positional": true,
         "choices": [
+          "fast",
+          "speed",
           "instant",
+          "极速",
+          "balanced",
+          "balance",
           "medium",
+          "均衡",
+          "advanced",
           "high",
+          "thinking",
+          "高级",
+          "very-high",
+          "ultra",
+          "xhigh",
+          "x-high",
           "extra-high",
+          "超高",
           "pro",
-          "thinking"
+          "professional",
+          "专业"
         ],
         "default": null,
-        "help": "Intelligence level to switch to; thinking is a backward-compatible alias for high"
+        "help": "Intelligence level to switch to"
       },
       {
         "name": "project",
@@ -16276,6 +16356,16 @@
         "help": "Prompt to send"
       },
       {
+        "name": "model",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Gemini model to use (e.g. \"2.5-flash\"). Use \"opencli gemini models\" to list available values."
+      },
+      {
         "name": "timeout",
         "type": "int",
         "required": false,
@@ -16294,6 +16384,16 @@
         "choices": [],
         "default": "false",
         "help": "Start a new chat first (true/false, default: false)"
+      },
+      {
+        "name": "thinking",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Thinking level: standard or extended (omitted = leave unchanged)"
       }
     ],
     "columns": [
@@ -16589,6 +16689,25 @@
     ],
     "domain": "gemini.google.com",
     "example": "opencli gemini login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gemini/models",
+    "site": "gemini",
+    "name": "models",
+    "aliases": [],
+    "description": "List available Gemini models from the web UI",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "model",
+      "thinkingValues"
+    ],
+    "domain": "gemini.google.com",
+    "example": "opencli gemini models -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -19252,6 +19371,1144 @@
     "example": "opencli hf whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
+  },
+  {
+    "command": "hltv/event-matches",
+    "site": "hltv",
+    "name": "event-matches",
+    "aliases": [],
+    "description": "Read visible HLTV stats match rows for a specific event",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "event",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Event id, /events/:id URL, or stats URL with event="
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Rows to return from the visible stats matches table (max 100)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "date",
+      "eventId",
+      "team",
+      "opponent",
+      "score",
+      "map",
+      "matchStatsId",
+      "matchStatsUrl",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv event-matches 8301 --limit 10 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/match-map",
+    "site": "hltv",
+    "name": "match-map",
+    "aliases": [],
+    "description": "Read a single HLTV mapstats page and return all player rows for that map",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "match",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Full HLTV /stats/matches/mapstatsid/:id/:slug URL from player-matches"
+      }
+    ],
+    "columns": [
+      "matchStatsId",
+      "playerId",
+      "playerName",
+      "team",
+      "kills",
+      "deaths",
+      "adr",
+      "kastPct",
+      "rating",
+      "opKd",
+      "details",
+      "url"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv match-map \"https://www.hltv.org/stats/matches/mapstatsid/231594/falcons-vs-natus-vincere\" -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/match-series",
+    "site": "hltv",
+    "name": "match-series",
+    "aliases": [],
+    "description": "Expand an HLTV match or stats series into summary, map, and player rows",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "match",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "HLTV match, stats series, or mapstats URL"
+      }
+    ],
+    "columns": [
+      "rowType",
+      "date",
+      "event",
+      "map",
+      "team",
+      "opponent",
+      "score",
+      "matchStatsId",
+      "playerId",
+      "playerName",
+      "rating",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv match-series https://www.hltv.org/stats/matches/126993/spirit-vs-falcons -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-duel",
+    "site": "hltv",
+    "name": "player-duel",
+    "aliases": [],
+    "description": "Compare two HLTV players on shared maps, including direct kill matrix when available",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "playerA",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "First player ref: 19230/m0nesy, player URL, or stats player URL"
+      },
+      {
+        "name": "playerB",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Second player ref: 3741/niko, player URL, or stats player URL"
+      },
+      {
+        "name": "match",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional HLTV match, stats series, or mapstats URL"
+      },
+      {
+        "name": "mode",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "lastEncounter",
+        "help": "lastEncounter / intersection / history. Ignored when --match is provided"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "event",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / event id / /events/:id URL / stats URL with event="
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset for broad mode; must be a multiple of 100"
+      },
+      {
+        "name": "recentMaps",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "lastEncounter mode candidate maps from playerA to scan (max 500)"
+      },
+      {
+        "name": "scanPages",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 1,
+        "help": "Broad mode pages to scan, 100 rows each (max 5)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum shared maps to compare (max 100)"
+      }
+    ],
+    "columns": [
+      "rowType",
+      "scope",
+      "date",
+      "event",
+      "map",
+      "matchStatsId",
+      "playerAId",
+      "playerBId",
+      "ratingDiff",
+      "killDiff",
+      "directKillDiff",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-duel 19230/m0nesy 3741/niko --match https://www.hltv.org/stats/matches/mapstatsid/231594/falcons-vs-natus-vincere -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-form",
+    "site": "hltv",
+    "name": "player-form",
+    "aliases": [],
+    "description": "Aggregate recent HLTV player maps into form summaries grouped by summary, map, and opponent",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "player",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "3741/niko",
+        "help": "Player ref: 3741/niko, player URL, or stats matches URL"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 30,
+        "help": "Recent maps to aggregate from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "category",
+      "key",
+      "playerId",
+      "nickname",
+      "maps",
+      "avgRating",
+      "kdRatio",
+      "killsPerMap",
+      "plusMinusTotal",
+      "winMaps",
+      "lossMaps",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-form --player 19230/m0nesy --limit 30 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-map-pool",
+    "site": "hltv",
+    "name": "player-map-pool",
+    "aliases": [],
+    "description": "Aggregate a player matches page into per-map performance buckets",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "player",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "3741/niko",
+        "help": "Player ref: 3741/niko, player URL, or stats player URL"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "event",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / event id / /events/:id URL / stats URL with event="
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Recent maps to aggregate from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "category",
+      "key",
+      "playerId",
+      "nickname",
+      "maps",
+      "avgRating",
+      "kdRatio",
+      "killsPerMap",
+      "plusMinusTotal",
+      "winMaps",
+      "lossMaps",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-map-pool --player 3741/niko --limit 50 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-matches",
+    "site": "hltv",
+    "name": "player-matches",
+    "aliases": [],
+    "description": "Read HLTV player match history from the stats Matches tab",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "player",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "3741/niko",
+        "help": "Player ref: 3741/niko, player URL, or stats matches URL"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Rows to return from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "date",
+      "playerTeam",
+      "opponent",
+      "map",
+      "kills",
+      "deaths",
+      "plusMinus",
+      "rating",
+      "playerId",
+      "matchStatsId",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-matches --player 3741/niko --limit 10 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-summary",
+    "site": "hltv",
+    "name": "player-summary",
+    "aliases": [],
+    "description": "Read an HLTV player summary page",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "player",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "3741/niko",
+        "help": "Player ref: 3741/niko or https://www.hltv.org/player/3741/niko"
+      }
+    ],
+    "columns": [
+      "playerId",
+      "slug",
+      "nickname",
+      "fullName",
+      "age",
+      "teamName",
+      "prizeMoneyUsd",
+      "maps",
+      "rating",
+      "roles",
+      "completeStatsUrl",
+      "url"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-summary --player 3741/niko -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-teammate-impact",
+    "site": "hltv",
+    "name": "player-teammate-impact",
+    "aliases": [],
+    "description": "Compare playerA maps with and without playerB present in the scanned sample",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "playerA",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Primary player ref"
+      },
+      {
+        "name": "playerB",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Teammate player ref"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "event",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / event id / /events/:id URL / stats URL with event="
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Rows to scan for each player from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "category",
+      "key",
+      "playerId",
+      "maps",
+      "avgRating",
+      "kdRatio",
+      "killsPerMap",
+      "plusMinusTotal",
+      "winMaps",
+      "lossMaps",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-teammate-impact 3741/niko 19230/m0nesy --limit 50 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/player-vs-team",
+    "site": "hltv",
+    "name": "player-vs-team",
+    "aliases": [],
+    "description": "Filter a player matches page to maps played against a specific HLTV team",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "player",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "3741/niko",
+        "help": "Player ref: 3741/niko, player URL, or stats player URL"
+      },
+      {
+        "name": "team",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Team ref: 7020/spirit, team URL, or stats team URL"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "event",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / event id / /events/:id URL / stats URL with event="
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Rows to scan from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "rowType",
+      "rank",
+      "date",
+      "playerId",
+      "opponent",
+      "map",
+      "kills",
+      "deaths",
+      "rating",
+      "result",
+      "matchStatsId",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv player-vs-team 7020/spirit --player 3741/niko --limit 20 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/search",
+    "site": "hltv",
+    "name": "search",
+    "aliases": [],
+    "description": "Search HLTV players, teams, events, and articles",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search keyword, e.g. niko"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 10,
+        "help": "Maximum rows per result type (max 50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "type",
+      "id",
+      "name",
+      "title",
+      "date",
+      "author",
+      "url"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv search niko --limit 10 -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/team-map-pool",
+    "site": "hltv",
+    "name": "team-map-pool",
+    "aliases": [],
+    "description": "Read the visible HLTV team map-pool page with win rate, pick rate, and ban rate",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "team",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Team ref: 11283/falcons, team URL, or stats team URL"
+      }
+    ],
+    "columns": [
+      "category",
+      "key",
+      "teamId",
+      "team",
+      "maps",
+      "winMaps",
+      "lossMaps",
+      "winRatePct",
+      "avgRoundDiff",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv team-map-pool 11283/falcons -f json",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "hltv/team-matches",
+    "site": "hltv",
+    "name": "team-matches",
+    "aliases": [],
+    "description": "Read recent HLTV team map results from the stats team matches page",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "team",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Team ref: 6667/falcons, team URL, or stats team URL"
+      },
+      {
+        "name": "period",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / lastMonth / last3Months / last6Months / last12Months / YYYY / YYYY-MM-DD:YYYY-MM-DD"
+      },
+      {
+        "name": "eventType",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / majors / bigEvents / mvpEvents / lan / online"
+      },
+      {
+        "name": "event",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / event id / /events/:id URL / stats URL with event="
+      },
+      {
+        "name": "ranking",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / top5 / top10 / top20 / top30 / top50"
+      },
+      {
+        "name": "map",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all / ancient / anubis / dust2 / inferno / mirage / nuke / overpass / cache / cobblestone / season / train / tuscan / vertigo"
+      },
+      {
+        "name": "version",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "both",
+        "help": "both / cs2 / csgo"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset; must be a multiple of 100"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 100,
+        "help": "Rows to return from the current page (max 100)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "date",
+      "team",
+      "opponent",
+      "map",
+      "result",
+      "teamId",
+      "matchStatsId",
+      "details"
+    ],
+    "domain": "www.hltv.org",
+    "example": "opencli hltv team-matches 6667/falcons --limit 10 -f json",
+    "defaultFormat": null,
+    "siteSession": null
   },
   {
     "command": "homebrew/cask",
@@ -27400,6 +28657,262 @@
     ],
     "domain": "medium.com",
     "example": "opencli medium user <username> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "mercury/check-login",
+    "site": "mercury",
+    "name": "check-login",
+    "aliases": [],
+    "description": "Open Mercury reimbursements and report whether the active browser profile is logged in",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "status",
+      "loggedIn",
+      "url",
+      "hasSubmitExpense",
+      "hasReimbursements",
+      "title"
+    ],
+    "domain": "app.mercury.com",
+    "example": "opencli --profile <profile> mercury check-login -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "mercury/reimbursement-draft",
+    "site": "mercury",
+    "name": "reimbursement-draft",
+    "aliases": [],
+    "description": "Create a Mercury reimbursement draft from a local receipt, correct OCR fields, and stop at Review",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "receipt",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Local receipt/proof file path"
+      },
+      {
+        "name": "amount",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Original-currency amount, e.g. 140.00"
+      },
+      {
+        "name": "currency",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "CNY",
+        "help": "Original currency code"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Expense date as YYYY-MM-DD"
+      },
+      {
+        "name": "merchant",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Merchant shown on the reimbursement"
+      },
+      {
+        "name": "category",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "Marketing & Advertising",
+        "help": "Mercury expense category"
+      },
+      {
+        "name": "notes",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Business purpose / reimbursement notes"
+      },
+      {
+        "name": "ocr-wait-seconds",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "8",
+        "help": "Seconds to wait after receipt upload before correcting OCR-overwritten fields"
+      },
+      {
+        "name": "close-after-review",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Close the Review dialog after verification; final Submit is still never clicked"
+      }
+    ],
+    "columns": [
+      "status",
+      "url",
+      "receipt",
+      "uploaded",
+      "fieldsTouched",
+      "reviewReady",
+      "submitBlocked",
+      "warnings"
+    ],
+    "domain": "app.mercury.com",
+    "example": "opencli --profile <profile> mercury reimbursement-draft --receipt /tmp/receipt.png --amount 140.00 --currency CNY --date 2026-06-26 --merchant \"Example Merchant\" --category \"Marketing & Advertising\" --notes \"Example business purpose.\" -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "mercury/reimbursement-plan",
+    "site": "mercury",
+    "name": "reimbursement-plan",
+    "aliases": [],
+    "description": "Validate Mercury reimbursement inputs and print the draft plan without opening a browser",
+    "access": "read",
+    "strategy": "local",
+    "browser": false,
+    "args": [
+      {
+        "name": "receipt",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Local receipt/proof file path"
+      },
+      {
+        "name": "amount",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Original-currency amount, e.g. 140.00"
+      },
+      {
+        "name": "currency",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "CNY",
+        "help": "Original currency code"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Expense date as YYYY-MM-DD"
+      },
+      {
+        "name": "merchant",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Merchant shown on the reimbursement"
+      },
+      {
+        "name": "category",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "Marketing & Advertising",
+        "help": "Mercury expense category"
+      },
+      {
+        "name": "notes",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Business purpose / reimbursement notes"
+      },
+      {
+        "name": "ocr-wait-seconds",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "8",
+        "help": "Seconds the draft command waits after receipt upload before correcting OCR fields"
+      },
+      {
+        "name": "close-after-review",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "For draft command: close the Review dialog after verification"
+      }
+    ],
+    "columns": [
+      "status",
+      "receipt",
+      "amount",
+      "currency",
+      "date",
+      "merchant",
+      "category",
+      "notes",
+      "safety"
+    ],
+    "domain": null,
+    "example": "opencli mercury reimbursement-plan --receipt /tmp/receipt.png --amount 140.00 --currency CNY --date 2026-06-26 --merchant \"Example Merchant\" --category \"Marketing & Advertising\" --notes \"Example business purpose.\" -f json",
     "defaultFormat": null,
     "siteSession": null
   },
