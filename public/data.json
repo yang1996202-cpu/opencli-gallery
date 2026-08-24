@@ -6526,7 +6526,7 @@
     "aliases": [],
     "description": "BOSS直聘查看职位详情",
     "access": "read",
-    "strategy": "cookie",
+    "strategy": "ui",
     "browser": true,
     "args": [
       {
@@ -6537,7 +6537,7 @@
         "positional": true,
         "choices": [],
         "default": null,
-        "help": "Security ID from search results (securityId field)"
+        "help": "Security ID from search results (security_id field)"
       }
     ],
     "columns": [
@@ -6546,7 +6546,7 @@
       "experience",
       "degree",
       "city",
-      "district",
+      "address",
       "description",
       "skills",
       "welfare",
@@ -6557,13 +6557,12 @@
       "industry",
       "scale",
       "stage",
-      "address",
       "url"
     ],
     "domain": "www.zhipin.com",
     "example": "opencli boss detail <security-id> -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "boss/exchange",
@@ -6912,7 +6911,7 @@
     "aliases": [],
     "description": "BOSS直聘搜索职位（不带关键词时返回为你推荐职位）",
     "access": "read",
-    "strategy": "cookie",
+    "strategy": "intercept",
     "browser": true,
     "args": [
       {
@@ -7022,7 +7021,7 @@
     "domain": "www.zhipin.com",
     "example": "opencli boss search -f yaml",
     "defaultFormat": null,
-    "siteSession": null
+    "siteSession": "persistent"
   },
   {
     "command": "boss/send",
@@ -7734,6 +7733,15 @@
       "status",
       "report",
       "sources",
+      "progress",
+      "asyncTaskConversationId",
+      "widgetSessionId",
+      "asyncStatus",
+      "venusMessageType",
+      "venusStatus",
+      "waitingForUserUntil",
+      "planTitle",
+      "planId",
       "url",
       "method",
       "diagnostics"
@@ -7967,7 +7975,7 @@
     "site": "chatgpt",
     "name": "model",
     "aliases": [],
-    "description": "Switch ChatGPT web intelligence level (fast, balanced, advanced, very-high, pro)",
+    "description": "Switch ChatGPT web model or intelligence level (GPT-5.6 Pro, fast, balanced, advanced, very-high, pro)",
     "access": "write",
     "strategy": "cookie",
     "browser": true,
@@ -7997,12 +8005,20 @@
           "x-high",
           "extra-high",
           "超高",
+          "gpt-5.6-pro",
+          "gpt-5-6-pro",
+          "gpt-5.6-sol-pro",
+          "gpt-5-6-sol-pro",
+          "gpt-5.6",
+          "gpt-5-6",
+          "5.6-pro",
+          "5.6",
           "pro",
           "professional",
           "专业"
         ],
         "default": null,
-        "help": "Intelligence level to switch to"
+        "help": "ChatGPT model or intelligence level to switch to"
       },
       {
         "name": "project",
@@ -8703,8 +8719,8 @@
           "opus",
           "haiku"
         ],
-        "default": "sonnet",
-        "help": "Model to use: sonnet, opus, or haiku"
+        "default": null,
+        "help": "Switch to sonnet, opus, or haiku before sending. Omit to keep the current selection."
       },
       {
         "name": "think",
@@ -9608,6 +9624,16 @@
         "choices": [],
         "default": null,
         "help": "Text, command (e.g. /review), or skill (e.g. $imagegen)"
+      },
+      {
+        "name": "pick",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Picker option label to select when a slash command opens the picker (e.g. \"Review Agent\")"
       },
       {
         "name": "project",
@@ -10620,6 +10646,229 @@
     "siteSession": null
   },
   {
+    "command": "ctrip/attraction",
+    "site": "ctrip",
+    "name": "attraction",
+    "aliases": [],
+    "description": "列出携程某城市的热门景点（评分/点评数，城市 id 经 ctrip search 获取）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "city",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric Ctrip city id (from `ctrip search`, e.g. 1 for 北京)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of attractions (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "rating",
+      "reviews",
+      "url"
+    ],
+    "domain": "you.ctrip.com",
+    "example": "opencli ctrip attraction <city> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/bus",
+    "site": "ctrip",
+    "name": "bus",
+    "aliases": [],
+    "description": "搜索携程汽车票（按出发/到达城市名 + 日期）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure city name (e.g. 北京 / 上海)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival city name (e.g. 天津 / 杭州)"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Departure date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of departures (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "departureTime",
+      "fromStation",
+      "toStation",
+      "duration",
+      "price",
+      "status",
+      "url"
+    ],
+    "domain": "bus.ctrip.com",
+    "example": "opencli ctrip bus <from> <to> --date <date> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/cruise",
+    "site": "ctrip",
+    "name": "cruise",
+    "aliases": [],
+    "description": "搜索携程邮轮线路（按出发港名）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "port",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure cruise port name (e.g. 上海 / 威尼斯 / 罗马)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of cruises (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "star",
+      "boarding",
+      "sailingDate",
+      "tags",
+      "price",
+      "url"
+    ],
+    "domain": "cruise.ctrip.com",
+    "example": "opencli ctrip cruise <port> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/ferry",
+    "site": "ctrip",
+    "name": "ferry",
+    "aliases": [],
+    "description": "搜索携程船票（按出发/到达城市名 + 日期）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure city name (e.g. 大连 / 海口)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival city name (e.g. 烟台 / 海安)"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Departure date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of sailings (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "shipName",
+      "departureTime",
+      "fromPort",
+      "arrivalTime",
+      "toPort",
+      "duration",
+      "price",
+      "status",
+      "url"
+    ],
+    "domain": "ship.ctrip.com",
+    "example": "opencli ctrip ferry <from> <to> --date <date> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "ctrip/flight",
     "site": "ctrip",
     "name": "flight",
@@ -10661,7 +10910,7 @@
       },
       {
         "name": "limit",
-        "type": "int",
+        "type": "str",
         "required": false,
         "valueRequired": false,
         "positional": false,
@@ -10687,6 +10936,130 @@
     ],
     "domain": "flights.ctrip.com",
     "example": "opencli ctrip flight <from> <to> --date <date> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/flight-round",
+    "site": "ctrip",
+    "name": "flight-round",
+    "aliases": [],
+    "description": "搜索携程往返机票（按出发/到达 IATA 三字码 + 去/返日期，返回去程腿含往返总价）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure IATA code (e.g. BJS / PEK)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival IATA code (e.g. SHA / PVG)"
+      },
+      {
+        "name": "depart",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Outbound date (YYYY-MM-DD)"
+      },
+      {
+        "name": "return",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Return date (YYYY-MM-DD), on or after depart"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of flights (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "airline",
+      "flightNo",
+      "aircraft",
+      "departureTime",
+      "departureAirport",
+      "arrivalTime",
+      "arrivalAirport",
+      "terminal",
+      "price",
+      "currency",
+      "cabin",
+      "url"
+    ],
+    "domain": "flights.ctrip.com",
+    "example": "opencli ctrip flight-round <from> <to> --depart <depart> --return <return> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/hotel",
+    "site": "ctrip",
+    "name": "hotel",
+    "aliases": [],
+    "description": "查看携程单个酒店详情（评分细分、热门设施、入离政策、位置）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric Ctrip hotel id (use `ctrip hotel-suggest` to discover; e.g. 375539)"
+      }
+    ],
+    "columns": [
+      "hotelId",
+      "name",
+      "enName",
+      "star",
+      "score",
+      "scoreLabel",
+      "reviewCount",
+      "ratingBreakdown",
+      "facilities",
+      "checkInOut",
+      "cityName",
+      "address",
+      "lat",
+      "lon",
+      "url"
+    ],
+    "domain": "hotels.ctrip.com",
+    "example": "opencli ctrip hotel <id> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -10732,7 +11105,7 @@
       },
       {
         "name": "limit",
-        "type": "int",
+        "type": "str",
         "required": false,
         "valueRequired": false,
         "positional": false,
@@ -10786,7 +11159,7 @@
       },
       {
         "name": "limit",
-        "type": "int",
+        "type": "str",
         "required": false,
         "valueRequired": false,
         "positional": false,
@@ -10851,6 +11224,53 @@
     "siteSession": "persistent"
   },
   {
+    "command": "ctrip/package",
+    "site": "ctrip",
+    "name": "package",
+    "aliases": [],
+    "description": "搜索携程机+酒自由行套餐（按目的地关键词）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "destination",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination keyword (e.g. 三亚 / 北京 / 曼谷)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of packages (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "subtitle",
+      "tags",
+      "score",
+      "sold",
+      "reviews",
+      "price",
+      "url"
+    ],
+    "domain": "vacations.ctrip.com",
+    "example": "opencli ctrip package <destination> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "ctrip/search",
     "site": "ctrip",
     "name": "search",
@@ -10872,7 +11292,7 @@
       },
       {
         "name": "limit",
-        "type": "int",
+        "type": "str",
         "required": false,
         "valueRequired": false,
         "positional": false,
@@ -10899,6 +11319,121 @@
     ],
     "domain": null,
     "example": "opencli ctrip search <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/tour",
+    "site": "ctrip",
+    "name": "tour",
+    "aliases": [],
+    "description": "搜索携程旅游线路（按目的地关键词，跟团/自由行）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "destination",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination keyword (e.g. 北京 / 三亚 / 马尔代夫)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of packages (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "subtitle",
+      "tags",
+      "score",
+      "sold",
+      "reviews",
+      "price",
+      "url"
+    ],
+    "domain": "vacations.ctrip.com",
+    "example": "opencli ctrip tour <destination> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "ctrip/train",
+    "site": "ctrip",
+    "name": "train",
+    "aliases": [],
+    "description": "搜索携程火车票（按出发/到达站名 + 日期）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure station or city name (e.g. 北京 / 上海虹桥)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival station or city name (e.g. 上海 / 杭州东)"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Departure date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of trains (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "trainNo",
+      "departureTime",
+      "departureStation",
+      "arrivalTime",
+      "arrivalStation",
+      "duration",
+      "fromPrice",
+      "seats",
+      "url"
+    ],
+    "domain": "trains.ctrip.com",
+    "example": "opencli ctrip train <from> <to> --date <date> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -11706,6 +12241,34 @@
     ],
     "domain": "chat.deepseek.com",
     "example": "opencli deepseek status -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "deepseek/usage",
+    "site": "deepseek",
+    "name": "usage",
+    "aliases": [],
+    "description": "Read DeepSeek platform usage: balance, cumulative spending, time-dimension spending, API requests, and Tokens.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "balance",
+      "bonusBalance",
+      "cumulativeSpend",
+      "monthlySpend",
+      "monthlyApiCalls",
+      "monthlyTokens",
+      "currentTokenEstimation",
+      "timePeriod",
+      "periodSpend",
+      "periodApiCalls",
+      "periodTokens"
+    ],
+    "domain": "platform.deepseek.com",
+    "example": "opencli deepseek usage -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -14622,7 +15185,7 @@
     "site": "douyin",
     "name": "stats",
     "aliases": [],
-    "description": "作品数据分析",
+    "description": "获取单个作品的创作者中心深层指标",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -14714,7 +15277,7 @@
         "positional": true,
         "choices": [],
         "default": null,
-        "help": "用户 sec_uid（URL 末尾部分）"
+        "help": "用户 sec_uid（个人主页 URL 末尾部分，也可直接传整条主页 URL）"
       },
       {
         "name": "limit",
@@ -14779,17 +15342,7 @@
         "positional": false,
         "choices": [],
         "default": 20,
-        "help": "每页数量"
-      },
-      {
-        "name": "page",
-        "type": "int",
-        "required": false,
-        "valueRequired": false,
-        "positional": false,
-        "choices": [],
-        "default": 1,
-        "help": "页码"
+        "help": "最多返回多少个作品（跨页自动收集）"
       },
       {
         "name": "status",
@@ -14813,6 +15366,10 @@
       "status",
       "play_count",
       "digg_count",
+      "comment_count",
+      "collect_count",
+      "share_count",
+      "duration",
       "create_time"
     ],
     "domain": "creator.douyin.com",
@@ -15018,7 +15575,7 @@
         "positional": false,
         "choices": [],
         "default": "turnover",
-        "help": "排序：turnover / change / drop / price / premium"
+        "help": "排序：turnover / change / drop / price / premium / value / put-trigger"
       },
       {
         "name": "limit",
@@ -15044,8 +15601,8 @@
       "convPrice",
       "convValue",
       "convPremiumPct",
-      "remainingYears",
-      "ytm",
+      "pureBondPremiumPct",
+      "putTriggerPrice",
       "listDate"
     ],
     "domain": "push2.eastmoney.com",
@@ -17525,6 +18082,72 @@
     ],
     "domain": "scholar.google.com",
     "example": "opencli google-scholar search <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "google/images",
+    "site": "google",
+    "name": "images",
+    "aliases": [],
+    "description": "Search Google Images for photos and image results",
+    "access": "read",
+    "strategy": "public",
+    "browser": true,
+    "args": [
+      {
+        "name": "keyword",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Image search query"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of image results (1-100)"
+      },
+      {
+        "name": "lang",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "en",
+        "help": "Language short code (e.g. en, zh)"
+      },
+      {
+        "name": "resolve",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": true,
+        "help": "Click image previews to resolve original imgurl values"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "imageUrl",
+      "thumbnailUrl",
+      "sourceUrl",
+      "source",
+      "width",
+      "height"
+    ],
+    "domain": "google.com",
+    "example": "opencli google images <keyword> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -25118,20 +25741,24 @@
     "site": "kimi",
     "name": "usage",
     "aliases": [],
-    "description": "Read Kimi Code console usage cards: weekly quota, rate limit, membership, and model permission.",
+    "description": "Read Kimi membership quota usage from the subscription page: total usage, rate limits, gift quota, and booster balance.",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
     "args": [],
     "columns": [
-      "weeklyUsagePct",
-      "weeklyResetIn",
-      "rateLimitPct",
-      "rateLimitResetIn",
       "membershipName",
-      "membershipTier",
-      "modelPermission",
-      "modelCost"
+      "membershipValidUntil",
+      "totalUsagePct",
+      "totalResetIn",
+      "fiveHourUsagePct",
+      "fiveHourResetIn",
+      "sevenDayUsagePct",
+      "sevenDayResetIn",
+      "giftUsagePct",
+      "giftValidUntil",
+      "balance",
+      "monthlySpend"
     ],
     "domain": "kimi.com",
     "example": "opencli kimi usage -f yaml",
@@ -25984,6 +26611,44 @@
     "siteSession": "persistent"
   },
   {
+    "command": "linkedin/company",
+    "site": "linkedin",
+    "name": "company",
+    "aliases": [],
+    "description": "Read a LinkedIn company page: industry, size, HQ, founded, website, followers, about",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "company",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Company universal name (nvidia), /company/<name> path, or full URL"
+      }
+    ],
+    "columns": [
+      "name",
+      "industry",
+      "size",
+      "headquarters",
+      "founded",
+      "website",
+      "specialties",
+      "followers",
+      "about",
+      "url"
+    ],
+    "domain": "www.linkedin.com",
+    "example": "opencli linkedin company <company> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "linkedin/connect",
     "site": "linkedin",
     "name": "connect",
@@ -26052,6 +26717,40 @@
     ],
     "domain": "www.linkedin.com",
     "example": "opencli linkedin connect <profile-url> --expected-name <expected-name> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "linkedin/connections",
+    "site": "linkedin",
+    "name": "connections",
+    "aliases": [],
+    "description": "List your LinkedIn first-degree connections (name, headline, profile URL)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of connections to return (max 500)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "occupation",
+      "public_id",
+      "connected_at",
+      "url"
+    ],
+    "domain": "www.linkedin.com",
+    "example": "opencli linkedin connections -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -28915,6 +29614,731 @@
     "example": "opencli mercury reimbursement-plan --receipt /tmp/receipt.png --amount 140.00 --currency CNY --date 2026-06-26 --merchant \"Example Merchant\" --category \"Marketing & Advertising\" --notes \"Example business purpose.\" -f json",
     "defaultFormat": null,
     "siteSession": null
+  },
+  {
+    "command": "midjourney/action",
+    "site": "midjourney",
+    "name": "action",
+    "aliases": [],
+    "description": "Run a typed Creation Action: vary, upscale, rerun, edit, animate, loop, extend, or cancel",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "job",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Source job UUID or /jobs/<uuid> URL"
+      },
+      {
+        "name": "operation",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "rerun, rerun-hd, vary-subtle, vary-strong, upscale-subtle, upscale-creative, open-editor, animate-low, animate-high, loop-low, loop-high, extend-low, extend-high, cancel"
+      },
+      {
+        "name": "index",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 1,
+        "help": "Source candidate 1..4"
+      },
+      {
+        "name": "video-resolution",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, sd, or hd"
+      },
+      {
+        "name": "batch-size",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, 1, 2, or 4"
+      },
+      {
+        "name": "prompt",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Manual motion/extension prompt"
+      },
+      {
+        "name": "end-frame",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "One local path, HTTPS image URL, or Midjourney job URL"
+      },
+      {
+        "name": "wait",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": true,
+        "help": "Wait for a derived job to complete"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum submission/generation seconds (1..900)"
+      },
+      {
+        "name": "dry-run",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Validate and estimate without clicking the action"
+      },
+      {
+        "name": "max-minutes",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 2,
+        "help": "Maximum estimated Fast GPU minutes allowed"
+      },
+      {
+        "name": "reserve-minutes",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Minimum Fast GPU minutes to keep after this command"
+      }
+    ],
+    "columns": [
+      "job_id",
+      "parent_job_id",
+      "status",
+      "operation",
+      "requested_model",
+      "effective_model",
+      "routing_reason",
+      "estimated_minutes",
+      "observed_minutes",
+      "index",
+      "file",
+      "url"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney action <job> vary-subtle --index 1 --dry-run",
+    "defaultFormat": "plain",
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/describe",
+    "site": "midjourney",
+    "name": "describe",
+    "aliases": [],
+    "description": "Upload one image and return Midjourney's four Describe prompt suggestions without generating images",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "image",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Local PNG, JPEG, WEBP, or GIF (10MB maximum)"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 60,
+        "help": "Maximum seconds to wait for four suggestions"
+      }
+    ],
+    "columns": [
+      "rank",
+      "prompt",
+      "source",
+      "created_at"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney describe /path/reference.png -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/download",
+    "site": "midjourney",
+    "name": "download",
+    "aliases": [],
+    "description": "Download original images, raw video, social MP4, or GIF with MIME and atomic-write checks",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "job",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Job UUID or Midjourney /jobs/<uuid> URL"
+      },
+      {
+        "name": "index",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "Candidate 1..4 or all"
+      },
+      {
+        "name": "kind",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, image, video-raw, video-social, or gif"
+      },
+      {
+        "name": "output",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "~/Pictures/Midjourney",
+        "help": "Output directory"
+      },
+      {
+        "name": "force",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Overwrite existing non-empty files"
+      }
+    ],
+    "columns": [
+      "job_id",
+      "status",
+      "kind",
+      "index",
+      "file",
+      "bytes",
+      "mime",
+      "url"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney download <job> --kind auto --index all",
+    "defaultFormat": "plain",
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/generate",
+    "site": "midjourney",
+    "name": "generate",
+    "aliases": [],
+    "description": "Generate Midjourney images with references, model routing, cost guards, recovery, and optional download",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "prompt",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Prompt with any native Midjourney --parameters"
+      },
+      {
+        "name": "model",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, v8.2, v8.1, v7, v6.1, v6, niji7, or niji6"
+      },
+      {
+        "name": "resolution",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, sd, or hd"
+      },
+      {
+        "name": "speed",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "auto",
+        "help": "auto, fast, relax, or turbo"
+      },
+      {
+        "name": "image-ref",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Local path, HTTPS URL, job URL, or JSON array"
+      },
+      {
+        "name": "style-ref",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Local path, HTTPS URL, job URL, style code, or JSON array"
+      },
+      {
+        "name": "omni-ref",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Exactly one local path, HTTPS URL, or job URL; auto routes to V7"
+      },
+      {
+        "name": "image-weight",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Image Prompt weight, 0..3"
+      },
+      {
+        "name": "style-weight",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Style Reference weight, 0..1000"
+      },
+      {
+        "name": "omni-weight",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Omni Reference weight, 0..1000"
+      },
+      {
+        "name": "profile",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Personalization profile or Moodboard ID"
+      },
+      {
+        "name": "repeat",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Repeat/permutation job count; defaults to 1 (plan limit applies)"
+      },
+      {
+        "name": "wait",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": true,
+        "help": "Wait for completion; false returns after unique job association"
+      },
+      {
+        "name": "index",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "Download candidate 1..4 or all"
+      },
+      {
+        "name": "output",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "~/Pictures/Midjourney",
+        "help": "Output directory"
+      },
+      {
+        "name": "skip-download",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Do not write completed images"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum submission/generation seconds (1..900)"
+      },
+      {
+        "name": "dry-run",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Validate and estimate without uploading or submitting"
+      },
+      {
+        "name": "max-minutes",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 2,
+        "help": "Maximum estimated Fast GPU minutes allowed"
+      },
+      {
+        "name": "reserve-minutes",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Minimum Fast GPU minutes to keep after this command"
+      },
+      {
+        "name": "force",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Overwrite existing non-empty output files"
+      }
+    ],
+    "columns": [
+      "job_id",
+      "parent_job_id",
+      "status",
+      "operation",
+      "requested_model",
+      "effective_model",
+      "routing_reason",
+      "estimated_minutes",
+      "observed_minutes",
+      "index",
+      "file",
+      "url"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney generate \"a blue ceramic teapot --ar 1:1\" --dry-run",
+    "defaultFormat": "plain",
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/history",
+    "site": "midjourney",
+    "name": "history",
+    "aliases": [],
+    "description": "List recent Midjourney image, video, and derived jobs with real lifecycle status",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 10,
+        "help": "Number of matching jobs (1..100)"
+      },
+      {
+        "name": "type",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all, image, or video"
+      },
+      {
+        "name": "status",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "all",
+        "help": "all, queued, running, completed, failed, or cancelled"
+      },
+      {
+        "name": "query",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Case-insensitive prompt substring"
+      }
+    ],
+    "columns": [
+      "job_id",
+      "parent_job_id",
+      "status",
+      "type",
+      "operation",
+      "model",
+      "resolution",
+      "created_at",
+      "batch_size",
+      "command",
+      "url"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney history --limit 10 --type all -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/login",
+    "site": "midjourney",
+    "name": "login",
+    "aliases": [],
+    "description": "Open Midjourney in a foreground Chrome window and wait for login to complete",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for interactive login (1..900)"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "plan",
+      "subscription_status"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney login --timeout 300",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/quota",
+    "site": "midjourney",
+    "name": "quota",
+    "aliases": [
+      "account"
+    ],
+    "description": "Show Midjourney quota, conservative batch estimates, and account-consumption trend",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "plan",
+      "period_end",
+      "allocated_minutes",
+      "used_minutes",
+      "remaining_minutes",
+      "used_pct",
+      "days_remaining",
+      "avg_daily_minutes",
+      "projected_exhaustion_date",
+      "sd_batches_remaining",
+      "hd_batches_remaining",
+      "omni_batches_remaining"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney quota -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/settings",
+    "site": "midjourney",
+    "name": "settings",
+    "aliases": [],
+    "description": "Read the currently selected Midjourney image and video settings from the visible Create UI",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "model",
+      "image_resolution",
+      "personalization",
+      "raw",
+      "speed",
+      "video_resolution",
+      "video_batch_size"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney settings -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/status",
+    "site": "midjourney",
+    "name": "status",
+    "aliases": [],
+    "description": "Show the current state and metadata of one Midjourney job",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "job",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Job UUID or Midjourney /jobs/<uuid> URL"
+      }
+    ],
+    "columns": [
+      "job_id",
+      "parent_job_id",
+      "status",
+      "progress_pct",
+      "operation",
+      "model",
+      "resolution",
+      "created_at",
+      "batch_size",
+      "error",
+      "url"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney status d5664250-5f1f-4cd0-9637-2ce0153dd30a -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "midjourney/whoami",
+    "site": "midjourney",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Verify the current Midjourney login and show non-identifying subscription state",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "plan",
+      "subscription_status"
+    ],
+    "domain": "www.midjourney.com",
+    "example": "opencli midjourney whoami -f json",
+    "defaultFormat": null,
+    "siteSession": "persistent"
   },
   {
     "command": "mubu/doc",
@@ -32128,6 +33552,961 @@
     ],
     "domain": "paperreview.ai",
     "example": "opencli paperreview submit <pdf> --email <email> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-create",
+    "site": "pinterest",
+    "name": "board-create",
+    "aliases": [],
+    "description": "Create a new board on your account",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Board name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Board description"
+      },
+      {
+        "name": "privacy",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "public",
+          "secret"
+        ],
+        "default": "public",
+        "help": "public or secret"
+      }
+    ],
+    "columns": [
+      "boardId",
+      "name",
+      "privacy",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-create <name> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-delete",
+    "site": "pinterest",
+    "name": "board-delete",
+    "aliases": [],
+    "description": "Delete one of your own boards",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "confirm",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Actually delete — without it the board is only previewed"
+      }
+    ],
+    "columns": [
+      "boardId",
+      "name",
+      "pinCount",
+      "deleted"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-delete <board> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-pins",
+    "site": "pinterest",
+    "name": "board-pins",
+    "aliases": [],
+    "description": "List pins inside a Pinterest board",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of pins (max 100)"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "description",
+      "pinner",
+      "board",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-pins <board> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-section-create",
+    "site": "pinterest",
+    "name": "board-section-create",
+    "aliases": [],
+    "description": "Create a section inside one of your boards",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Section title"
+      }
+    ],
+    "columns": [
+      "sectionId",
+      "title",
+      "slug",
+      "board",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-section-create <board> --title <title> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-section-delete",
+    "site": "pinterest",
+    "name": "board-section-delete",
+    "aliases": [],
+    "description": "Delete a section from one of your boards",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "section",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Section id or slug (from `board-sections`)"
+      },
+      {
+        "name": "confirm",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Actually delete — without it nothing is removed"
+      }
+    ],
+    "columns": [
+      "sectionId",
+      "board",
+      "deleted"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-section-delete <board> --section <section> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-sections",
+    "site": "pinterest",
+    "name": "board-sections",
+    "aliases": [],
+    "description": "List the sections inside a Pinterest board",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 50,
+        "help": "Number of sections (max 250)"
+      }
+    ],
+    "columns": [
+      "sectionId",
+      "title",
+      "slug",
+      "pinCount",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-sections <board> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/board-update",
+    "site": "pinterest",
+    "name": "board-update",
+    "aliases": [],
+    "description": "Update the name, description, or privacy of your board",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "<username>/<slug>, a board URL, or a numeric board id, e.g. janedoe/my-board"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "New board name"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "New board description (pass \"\" to clear)"
+      },
+      {
+        "name": "privacy",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "public",
+          "secret"
+        ],
+        "default": null,
+        "help": "New privacy: public or secret"
+      }
+    ],
+    "columns": [
+      "boardId",
+      "name",
+      "privacy",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest board-update <board> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/download",
+    "site": "pinterest",
+    "name": "download",
+    "aliases": [],
+    "description": "Download a pin's original image to disk",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "pin",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pin id or pin URL, e.g. 1234567890123456"
+      },
+      {
+        "name": "output",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "./pinterest-downloads",
+        "help": "Output directory"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "status",
+      "size",
+      "path"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest download <pin> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/pin",
+    "site": "pinterest",
+    "name": "pin",
+    "aliases": [],
+    "description": "Get details of a Pinterest pin",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "pin",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pin id or pin URL, e.g. 1234567890123456"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "description",
+      "pinner",
+      "board",
+      "saveCount",
+      "commentCount",
+      "link",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest pin <pin> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/pin-create",
+    "site": "pinterest",
+    "name": "pin-create",
+    "aliases": [],
+    "description": "Create a pin from a remote image URL onto a board",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "image",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Direct image URL Pinterest can fetch (not a page URL), e.g. https://example.com/image.jpg"
+      },
+      {
+        "name": "board",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Target board: <username>/<slug>, board URL, or board id (a new pin always needs a board)"
+      },
+      {
+        "name": "section",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional board section id or slug"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Pin title"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Pin description (Pinterest may override it for scraped images)"
+      },
+      {
+        "name": "link",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Destination link for the pin"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "board",
+      "title",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest pin-create <image> --board <board> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/pin-delete",
+    "site": "pinterest",
+    "name": "pin-delete",
+    "aliases": [],
+    "description": "Delete one of your own pins",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "pin",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pin id or pin URL, e.g. 1234567890123456"
+      },
+      {
+        "name": "confirm",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Actually delete — without it the pin is only previewed"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "board",
+      "deleted"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest pin-delete <pin> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/pin-update",
+    "site": "pinterest",
+    "name": "pin-update",
+    "aliases": [],
+    "description": "Update a pin's title, description, link, or board",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "pin",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pin id or pin URL, e.g. 1234567890123456"
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "New pin title"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "New pin description (pass \"\" to clear)"
+      },
+      {
+        "name": "link",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "New destination link (pass \"\" to clear)"
+      },
+      {
+        "name": "board",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Move the pin to this board: <username>/<slug>, board URL, or board id"
+      },
+      {
+        "name": "section",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Move the pin to this board section id or slug (requires --board)"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "board",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest pin-update <pin> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/save",
+    "site": "pinterest",
+    "name": "save",
+    "aliases": [],
+    "description": "Save a pin to your profile or a board",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "pin",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pin id or pin URL to repin, e.g. 1234567890123456"
+      },
+      {
+        "name": "board",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Target board: <username>/<slug>, board URL, or board id (omit to save to your profile)"
+      },
+      {
+        "name": "section",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional board section id or slug (requires --board)"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "sourcePinId",
+      "board",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest save <pin> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/search-boards",
+    "site": "pinterest",
+    "name": "search-boards",
+    "aliases": [],
+    "description": "Search for boards on Pinterest",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search keyword"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of boards (max 100)"
+      }
+    ],
+    "columns": [
+      "boardId",
+      "name",
+      "pinCount",
+      "owner",
+      "description",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest search-boards <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/search-pins",
+    "site": "pinterest",
+    "name": "search-pins",
+    "aliases": [],
+    "description": "Search pins on Pinterest",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search keyword"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of pins (max 100)"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "description",
+      "pinner",
+      "board",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest search-pins <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/search-users",
+    "site": "pinterest",
+    "name": "search-users",
+    "aliases": [],
+    "description": "Search for users on Pinterest",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search keyword"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of users (max 100)"
+      }
+    ],
+    "columns": [
+      "username",
+      "fullName",
+      "followerCount",
+      "pinCount",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest search-users <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/user",
+    "site": "pinterest",
+    "name": "user",
+    "aliases": [],
+    "description": "Get a Pinterest user's public profile stats",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Username or profile URL, e.g. janedoe"
+      }
+    ],
+    "columns": [
+      "username",
+      "fullName",
+      "followerCount",
+      "followingCount",
+      "interestFollowingCount",
+      "pinCount",
+      "boardCount",
+      "about",
+      "website",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest user <username> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/user-boards",
+    "site": "pinterest",
+    "name": "user-boards",
+    "aliases": [],
+    "description": "List a user's boards",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Username or profile URL, e.g. janedoe"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of boards (max 250)"
+      },
+      {
+        "name": "sort",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "last_pinned_to",
+          "alphabetical",
+          "custom"
+        ],
+        "default": "last_pinned_to",
+        "help": "Board sort order"
+      }
+    ],
+    "columns": [
+      "boardId",
+      "name",
+      "pinCount",
+      "sectionCount",
+      "privacy",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest user-boards <username> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pinterest/user-pins",
+    "site": "pinterest",
+    "name": "user-pins",
+    "aliases": [],
+    "description": "List pins created by a Pinterest user",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Username or profile URL, e.g. janedoe"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 25,
+        "help": "Number of pins (max 100)"
+      }
+    ],
+    "columns": [
+      "pinId",
+      "title",
+      "description",
+      "pinner",
+      "board",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "www.pinterest.com",
+    "example": "opencli pinterest user-pins <username> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -35813,7 +38192,7 @@
         "positional": false,
         "choices": [],
         "default": false,
-        "help": "Include nested replies (楼中楼)"
+        "help": "Include nested replies; reply_to is the direct target shown by the page"
       }
     ],
     "columns": [
@@ -35823,7 +38202,8 @@
       "likes",
       "time",
       "is_reply",
-      "reply_to"
+      "reply_to",
+      "images"
     ],
     "domain": "www.rednote.com",
     "example": "opencli rednote comments <note-id> -f yaml",
@@ -40688,8 +43068,8 @@
     "aliases": [],
     "description": "同花顺热股榜",
     "access": "read",
-    "strategy": "cookie",
-    "browser": true,
+    "strategy": "public",
+    "browser": false,
     "args": [
       {
         "name": "limit",
@@ -40709,7 +43089,7 @@
       "heat",
       "tags"
     ],
-    "domain": "eq.10jqka.com.cn",
+    "domain": "dq.10jqka.com.cn",
     "example": "opencli ths hot-rank -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -41669,6 +44049,54 @@
     "example": "opencli toutiao login -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
+  },
+  {
+    "command": "toutiao/recommend",
+    "site": "toutiao",
+    "name": "recommend",
+    "aliases": [],
+    "description": "今日头条频道推荐流（公开 API，无需登录）",
+    "access": "read",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "category",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "__all__",
+        "help": "频道 (__all__, news_tech, news_finance, news_world, news_sports, news_entertainment, news_military)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "返回条数 (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "group_id",
+      "title",
+      "abstract",
+      "source",
+      "tag",
+      "comments",
+      "published_at",
+      "url",
+      "image_url"
+    ],
+    "domain": "www.toutiao.com",
+    "example": "opencli toutiao recommend -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
   },
   {
     "command": "toutiao/whoami",
@@ -43272,6 +45700,699 @@
     "siteSession": null
   },
   {
+    "command": "trip/attraction",
+    "site": "trip",
+    "name": "attraction",
+    "aliases": [],
+    "description": "Search Trip.com attractions and experiences by destination keyword",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination or attraction keyword (e.g. Tokyo / Paris / Louvre)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of results (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "rating",
+      "reviews",
+      "booked",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip attraction <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/car",
+    "site": "trip",
+    "name": "car",
+    "aliases": [],
+    "description": "List Trip.com car-rental vehicles for a city (category, model, seats, daily price)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "city",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric Trip.com carhire city id (discover via the carhire search box)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of vehicles (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "category",
+      "vehicle",
+      "seats",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip car <city> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/deals",
+    "site": "trip",
+    "name": "deals",
+    "aliases": [],
+    "description": "List Trip.com live promotions from the Top Deals hub: campaign title, offer, discount, and link",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of deals (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "offer",
+      "discount",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip deals -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/flight",
+    "site": "trip",
+    "name": "flight",
+    "aliases": [],
+    "description": "Search Trip.com one-way flights by IATA route + departure date",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure IATA code (e.g. LON / LHR)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival IATA code (e.g. NYC / JFK)"
+      },
+      {
+        "name": "date",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Departure date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of flights (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "airline",
+      "departureTime",
+      "departureAirport",
+      "arrivalTime",
+      "arrivalAirport",
+      "duration",
+      "stops",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip flight <from> <to> --date <date> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/flight-round",
+    "site": "trip",
+    "name": "flight-round",
+    "aliases": [],
+    "description": "Search Trip.com round-trip flights by IATA route + depart/return dates",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure IATA code (e.g. LON / LHR)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival IATA code (e.g. NYC / JFK)"
+      },
+      {
+        "name": "depart",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Outbound date (YYYY-MM-DD)"
+      },
+      {
+        "name": "return",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Return date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of flights (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "airline",
+      "departureTime",
+      "departureAirport",
+      "arrivalTime",
+      "arrivalAirport",
+      "duration",
+      "stops",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip flight-round <from> <to> --depart <depart> --return <return> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/hotel",
+    "site": "trip",
+    "name": "hotel",
+    "aliases": [],
+    "description": "Show a Trip.com hotel detail by id (rating breakdown, amenities, check-in/out policy)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric Trip.com hotel id (discover via the hotels list; e.g. 715233)"
+      }
+    ],
+    "columns": [
+      "hotelId",
+      "name",
+      "enName",
+      "star",
+      "score",
+      "scoreLabel",
+      "reviewCount",
+      "ratingBreakdown",
+      "facilities",
+      "checkInOut",
+      "cityName",
+      "address",
+      "lat",
+      "lon",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip hotel <id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/hotel-search",
+    "site": "trip",
+    "name": "hotel-search",
+    "aliases": [],
+    "description": "List Trip.com hotels for a city id + check-in/out date range",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "city",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric Trip.com city id (discover via the hotels search box; e.g. 338 for London)"
+      },
+      {
+        "name": "checkin",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Check-in date (YYYY-MM-DD)"
+      },
+      {
+        "name": "checkout",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Check-out date (YYYY-MM-DD)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of hotels (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "score",
+      "reviewLabel",
+      "reviews",
+      "location",
+      "room",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip hotel-search <city> --checkin <checkin> --checkout <checkout> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/package",
+    "site": "trip",
+    "name": "package",
+    "aliases": [],
+    "description": "Search Trip.com flight+hotel packages by route + dates; lists the package flight options priced at the bundle rate",
+    "access": "read",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Origin city keyword (e.g. Seoul / London / Bangkok)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination city keyword (e.g. Tokyo / Paris / Singapore)"
+      },
+      {
+        "name": "depart",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Outbound date (YYYY-MM-DD)"
+      },
+      {
+        "name": "return",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Return date (YYYY-MM-DD)"
+      },
+      {
+        "name": "adults",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 2,
+        "help": "Number of adults (1-9, default 2)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of packages (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "airline",
+      "flightNo",
+      "from",
+      "to",
+      "departure",
+      "arrival",
+      "stops",
+      "price",
+      "currency"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip package <from> <to> --depart <depart> --return <return> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/search",
+    "site": "trip",
+    "name": "search",
+    "aliases": [],
+    "description": "Suggest Trip.com destinations (cities, airports) for a keyword; resolves the ids the other commands take",
+    "access": "read",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination keyword (e.g. Tokyo / Bali / London)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of suggestions (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "type",
+      "cityId",
+      "airportCode",
+      "province",
+      "country"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip search <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/tour",
+    "site": "trip",
+    "name": "tour",
+    "aliases": [],
+    "description": "Search Trip.com tour packages by destination keyword (private or group tours)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Destination or tour keyword (e.g. Tokyo / Kyoto / Bali)"
+      },
+      {
+        "name": "type",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "private",
+        "help": "Tour line: private or group (default private)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of tours (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "name",
+      "type",
+      "rating",
+      "reviews",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip tour <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/train",
+    "site": "trip",
+    "name": "train",
+    "aliases": [],
+    "description": "Show a Trip.com train route timetable (departure/arrival times, duration, changes)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "from",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Departure city (e.g. London / Paris / Shanghai)"
+      },
+      {
+        "name": "to",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Arrival city (e.g. Manchester / Lyon / Beijing)"
+      },
+      {
+        "name": "country",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Route country slug (e.g. uk / france / italy / spain / germany / china)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of journeys (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "departureTime",
+      "fromStation",
+      "arrivalTime",
+      "toStation",
+      "duration",
+      "changes",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip train <from> <to> --country <country> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "trip/transfer",
+    "site": "trip",
+    "name": "transfer",
+    "aliases": [],
+    "description": "List Trip.com airport-transfer vehicles for a city + airport (type, seats, from-price)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "city",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Airport city (e.g. Bangkok / Beijing / Da Nang)"
+      },
+      {
+        "name": "airport",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "3-letter airport IATA code (e.g. DMK / PKX / DAD)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of vehicles (1-50)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "type",
+      "passengers",
+      "luggage",
+      "price",
+      "currency",
+      "url"
+    ],
+    "domain": "trip.com",
+    "example": "opencli trip transfer <city> <airport> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "tvmaze/search",
     "site": "tvmaze",
     "name": "search",
@@ -43612,7 +46733,47 @@
         "positional": false,
         "choices": [],
         "default": 20,
-        "help": "Maximum number of bookmarks to return (default 20)."
+        "help": "Maximum number of bookmarks to return (default 20). Ignored when --all is set."
+      },
+      {
+        "name": "all",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Fetch all bookmark pages until exhausted. Prefer --output-file for large archives."
+      },
+      {
+        "name": "resume-file",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Resume file for long-running all-pages bookmark syncs."
+      },
+      {
+        "name": "output-file",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Write all-page results to JSONL. Requires --all and --resume-file."
+      },
+      {
+        "name": "max-pages",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Optional pagination safety cap (default 100; raised automatically with --all)."
       },
       {
         "name": "top-by-engagement",
@@ -43622,7 +46783,7 @@
         "positional": false,
         "choices": [],
         "default": 0,
-        "help": "When set to N>0, re-rank the bookmarks by weighted engagement (likes×1 + retweets×3 + replies×2 + bookmarks×5 + log10(views+1)×0.5) and return the top N. Default 0 keeps the API's native (saved-time) ordering."
+        "help": "When set to N>0, re-rank the bookmarks by weighted engagement (likes×1 + retweets×3 + replies×2 + bookmarks×5 + log10(views+1)×0.5) and return the top N. Default 0 keeps the API's native (saved-time) ordering. Incompatible with --output-file."
       }
     ],
     "columns": [
@@ -43640,6 +46801,66 @@
     ],
     "domain": "x.com",
     "example": "opencli twitter bookmarks -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "twitter/collection",
+    "site": "twitter",
+    "name": "collection",
+    "aliases": [],
+    "description": "Fetch a user timeline with relationship facts and a bounded completion receipt.",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "username",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Twitter screen name (with or without @)."
+      },
+      {
+        "name": "until",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "RFC3339 lower time boundary that must be reached or exhausted."
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 10000,
+        "help": "Safety ceiling; reaching it is a typed failure."
+      },
+      {
+        "name": "page-delay",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 2,
+        "help": "Seconds to wait between cursor pages."
+      }
+    ],
+    "columns": [
+      "posts",
+      "receipt"
+    ],
+    "domain": "x.com",
+    "example": "opencli twitter collection <username> --until <until> -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -44026,7 +47247,47 @@
         "positional": false,
         "choices": [],
         "default": 20,
-        "help": "Maximum number of liked tweets to return (default 20)."
+        "help": "Maximum number of liked tweets to return (default 20). Ignored when --all is set."
+      },
+      {
+        "name": "all",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Fetch all liked-tweet pages until exhausted. Prefer --output-file for large archives."
+      },
+      {
+        "name": "resume-file",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Resume file for long-running all-pages likes syncs."
+      },
+      {
+        "name": "output-file",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Write all-page results to JSONL. Requires --all and --resume-file."
+      },
+      {
+        "name": "max-pages",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Optional pagination safety cap (default 100; raised automatically with --all)."
       },
       {
         "name": "top-by-engagement",
@@ -44036,7 +47297,7 @@
         "positional": false,
         "choices": [],
         "default": 0,
-        "help": "When set to N>0, re-rank the liked tweets by weighted engagement (likes×1 + retweets×3 + replies×2 + bookmarks×5 + log10(views+1)×0.5) and return the top N. Default 0 keeps the API's native (recency) ordering."
+        "help": "When set to N>0, re-rank the liked tweets by weighted engagement (likes×1 + retweets×3 + replies×2 + bookmarks×5 + log10(views+1)×0.5) and return the top N. Default 0 keeps the API's native (recency) ordering. Incompatible with --output-file."
       }
     ],
     "columns": [
@@ -44502,6 +47763,37 @@
     "example": "opencli twitter login -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
+  },
+  {
+    "command": "twitter/mute-word",
+    "site": "twitter",
+    "name": "mute-word",
+    "aliases": [],
+    "description": "Add a muted word or phrase on Twitter/X",
+    "access": "write",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "keyword",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Word or phrase to mute"
+      }
+    ],
+    "columns": [
+      "keyword",
+      "status",
+      "message"
+    ],
+    "domain": "x.com",
+    "example": "opencli twitter mute-word <keyword> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
   },
   {
     "command": "twitter/notifications",
@@ -49357,7 +52649,7 @@
         "positional": false,
         "choices": [],
         "default": false,
-        "help": "Include nested replies (楼中楼)"
+        "help": "Include nested replies; reply_to is the direct target shown by the page"
       }
     ],
     "columns": [
@@ -49369,7 +52661,8 @@
       "likes",
       "time",
       "is_reply",
-      "reply_to"
+      "reply_to",
+      "images"
     ],
     "domain": "www.xiaohongshu.com",
     "example": "opencli xiaohongshu comments <note-id> -f yaml",
