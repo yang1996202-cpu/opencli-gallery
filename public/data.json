@@ -4187,7 +4187,7 @@
     "site": "bilibili",
     "name": "comments",
     "aliases": [],
-    "description": "获取 B站视频评论（官方 API；用 --parent <rpid> 读取某条评论下的「楼中楼」回复）",
+    "description": "获取 B站视频评论（官方 API；用 --parent <rpid> 读取某条评论下的「楼中楼」回复；用 --top 只看置顶评论）",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -4213,6 +4213,16 @@
         "help": "rpid of a comment — fetch the replies under it instead of top-level comments"
       },
       {
+        "name": "top",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "只返回置顶评论（与 --parent 互斥）"
+      },
+      {
         "name": "limit",
         "type": "int",
         "required": false,
@@ -4234,6 +4244,38 @@
     ],
     "domain": "www.bilibili.com",
     "example": "opencli bilibili comments <bvid> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "bilibili/creator-stats",
+    "site": "bilibili",
+    "name": "creator-stats",
+    "aliases": [],
+    "description": "读取当前账号最近稿件的核心创作指标（需登录创作中心）",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "bvid",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Exact case-sensitive BV ID or bilibili.com video URL"
+      }
+    ],
+    "columns": [
+      "bvid",
+      "metric",
+      "value",
+      "unit"
+    ],
+    "domain": "member.bilibili.com",
+    "example": "opencli bilibili creator-stats <bvid-or-video-url> -f json",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -10875,7 +10917,7 @@
     "aliases": [],
     "description": "搜索携程一程机票（按出发/到达 IATA 三字码 + 日期）",
     "access": "read",
-    "strategy": "cookie",
+    "strategy": "intercept",
     "browser": true,
     "args": [
       {
@@ -15400,6 +15442,460 @@
     "siteSession": "persistent"
   },
   {
+    "command": "dribbble/collection",
+    "site": "dribbble",
+    "name": "collection",
+    "aliases": [],
+    "description": "List public collections curated by a Dribbble designer",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "designer",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Dribbble username or profile slug"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of collections (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "title",
+      "shotCount",
+      "designerCount",
+      "url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble collection <designer> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/designer",
+    "site": "dribbble",
+    "name": "designer",
+    "aliases": [],
+    "description": "Browse Dribbble designers and freelance agencies",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional designer or skill keyword"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of designers (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "username",
+      "name",
+      "rating",
+      "projectCount",
+      "budgetText",
+      "location",
+      "responseTime",
+      "serviceCount",
+      "skills",
+      "url",
+      "avatarUrl"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble designer -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/login",
+    "site": "dribbble",
+    "name": "login",
+    "aliases": [],
+    "description": "Open dribbble login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "username",
+      "profile_url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "dribbble/member",
+    "site": "dribbble",
+    "name": "member",
+    "aliases": [],
+    "description": "List public members of a Dribbble team profile",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "designer",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Dribbble team username or profile slug"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of members (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "username",
+      "name",
+      "location",
+      "url",
+      "avatarUrl",
+      "recentShotUrls"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble member <designer> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/portfolio",
+    "site": "dribbble",
+    "name": "portfolio",
+    "aliases": [],
+    "description": "List a Dribbble designer's published or liked shots",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "designer",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Dribbble username or profile slug"
+      },
+      {
+        "name": "type",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "work",
+          "likes"
+        ],
+        "default": "work",
+        "help": "Portfolio type: work or likes"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of shots (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "title",
+      "designer",
+      "likes",
+      "views",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble portfolio <designer> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/profile",
+    "site": "dribbble",
+    "name": "profile",
+    "aliases": [],
+    "description": "Show a public Dribbble designer profile",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "designer",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Dribbble username or profile slug (for example: halolab)"
+      }
+    ],
+    "columns": [
+      "username",
+      "name",
+      "intro",
+      "biography",
+      "followersCount",
+      "followingCount",
+      "likesCount",
+      "availableForWork",
+      "location",
+      "memberSince",
+      "skills",
+      "languages",
+      "socialLinks",
+      "website",
+      "url",
+      "avatarUrl"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble profile <designer> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/service",
+    "site": "dribbble",
+    "name": "service",
+    "aliases": [],
+    "description": "List services offered by a Dribbble designer",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "designer",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Dribbble username or profile slug (for example: halolab)"
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "",
+        "help": "Optional service title filter"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of services (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "title",
+      "priceText",
+      "duration",
+      "description",
+      "quickHire",
+      "url",
+      "imageUrl",
+      "designer"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble service <designer> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/shot",
+    "site": "dribbble",
+    "name": "shot",
+    "aliases": [],
+    "description": "Search public Dribbble shots by keyword",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Search keyword"
+      },
+      {
+        "name": "sort",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "following",
+          "popular",
+          "recent"
+        ],
+        "default": "popular",
+        "help": "Sort order: following, popular, or recent (New & Noteworthy)"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of shots (max 30)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "id",
+      "title",
+      "designer",
+      "likes",
+      "views",
+      "imageUrl",
+      "url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble shot <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/shot-detail",
+    "site": "dribbble",
+    "name": "shot-detail",
+    "aliases": [],
+    "description": "Show details and media for a Dribbble shot",
+    "access": "read",
+    "strategy": "ui",
+    "browser": true,
+    "args": [
+      {
+        "name": "shot",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Numeric shot id or dribbble.com/shots URL"
+      }
+    ],
+    "columns": [
+      "id",
+      "title",
+      "designer",
+      "designerUrl",
+      "team",
+      "description",
+      "imageUrl",
+      "mediaUrls",
+      "colors",
+      "availableForWork",
+      "url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble shot-detail <shot> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "dribbble/whoami",
+    "site": "dribbble",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in dribbble account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "username",
+      "profile_url"
+    ],
+    "domain": "dribbble.com",
+    "example": "opencli dribbble whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
     "command": "duckduckgo/search",
     "site": "duckduckgo",
     "name": "search",
@@ -17939,6 +18435,676 @@
     ],
     "domain": "github.com",
     "example": "opencli github whoami -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/attachments",
+    "site": "gmail",
+    "name": "attachments",
+    "aliases": [],
+    "description": "List attachment metadata for a Gmail thread",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "thread",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Thread id from gmail search, legacy id, or Gmail thread URL"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "attachmentId",
+      "name",
+      "mimeType",
+      "size"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail attachments <thread> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/drafts",
+    "site": "gmail",
+    "name": "drafts",
+    "aliases": [],
+    "description": "List Gmail draft threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail drafts -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/important",
+    "site": "gmail",
+    "name": "important",
+    "aliases": [],
+    "description": "List important Gmail threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail important -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/inbox",
+    "site": "gmail",
+    "name": "inbox",
+    "aliases": [],
+    "description": "List Gmail inbox threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail inbox -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/labels",
+    "site": "gmail",
+    "name": "labels",
+    "aliases": [],
+    "description": "List Gmail system and user labels with counts",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "id",
+      "name",
+      "type",
+      "unreadCount",
+      "totalCount"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail labels -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/login",
+    "site": "gmail",
+    "name": "login",
+    "aliases": [],
+    "description": "Open gmail login and wait until the browser session is authenticated",
+    "access": "write",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 300,
+        "help": "Maximum seconds to wait for the user to finish login"
+      }
+    ],
+    "columns": [
+      "status",
+      "logged_in",
+      "site",
+      "email",
+      "name"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail login -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/search",
+    "site": "gmail",
+    "name": "search",
+    "aliases": [],
+    "description": "Search Gmail using Gmail search syntax",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "query",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Gmail search query"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail search <query> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/sent",
+    "site": "gmail",
+    "name": "sent",
+    "aliases": [],
+    "description": "List sent Gmail threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail sent -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/snoozed",
+    "site": "gmail",
+    "name": "snoozed",
+    "aliases": [],
+    "description": "List snoozed Gmail threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail snoozed -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/spam",
+    "site": "gmail",
+    "name": "spam",
+    "aliases": [],
+    "description": "List Gmail spam threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail spam -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/starred",
+    "site": "gmail",
+    "name": "starred",
+    "aliases": [],
+    "description": "List starred Gmail threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail starred -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/thread",
+    "site": "gmail",
+    "name": "thread",
+    "aliases": [],
+    "description": "Read every message in a Gmail thread",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "thread",
+        "type": "string",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Thread id from gmail search, legacy id, or Gmail thread URL"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "messageId",
+      "legacyMessageId",
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "to",
+      "cc",
+      "date",
+      "snippet",
+      "body",
+      "attachments"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail thread <thread> -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/trash",
+    "site": "gmail",
+    "name": "trash",
+    "aliases": [],
+    "description": "List Gmail trash threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail trash -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/unread",
+    "site": "gmail",
+    "name": "unread",
+    "aliases": [],
+    "description": "List unread Gmail threads",
+    "access": "read",
+    "strategy": "intercept",
+    "browser": true,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum threads to return (1-200)"
+      },
+      {
+        "name": "account",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Gmail account index from the /mail/u/<index>/ URL"
+      }
+    ],
+    "columns": [
+      "threadId",
+      "subject",
+      "from",
+      "fromName",
+      "snippet",
+      "messageCount",
+      "unread",
+      "starred",
+      "date",
+      "labels"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail unread -f yaml",
+    "defaultFormat": null,
+    "siteSession": "persistent"
+  },
+  {
+    "command": "gmail/whoami",
+    "site": "gmail",
+    "name": "whoami",
+    "aliases": [],
+    "description": "Show the current logged-in gmail account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "logged_in",
+      "site",
+      "email",
+      "name"
+    ],
+    "domain": "mail.google.com",
+    "example": "opencli gmail whoami -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
   },
@@ -24200,6 +25366,16 @@
         "choices": [],
         "default": 100,
         "help": "Max comments to include (1-100)"
+      },
+      {
+        "name": "fields",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Fields to request, comma-separated, or auto for all fields"
       }
     ],
     "columns": [
@@ -27744,9 +28920,9 @@
     "site": "linkedin",
     "name": "thread-snapshot",
     "aliases": [],
-    "description": "Load a LinkedIn messaging thread, scroll for available history, and return a full context snapshot",
+    "description": "Load a LinkedIn messaging thread and return a structured conversation snapshot",
     "access": "read",
-    "strategy": "ui",
+    "strategy": "cookie",
     "browser": true,
     "args": [
       {
@@ -27767,7 +28943,7 @@
         "positional": false,
         "choices": [],
         "default": 30,
-        "help": "Maximum upward scroll attempts to load older messages"
+        "help": "Maximum upward scroll attempts used to request older message pages"
       },
       {
         "name": "json",
@@ -30341,6 +31517,195 @@
     "siteSession": "persistent"
   },
   {
+    "command": "minimax/music",
+    "site": "minimax",
+    "name": "music",
+    "aliases": [],
+    "description": "Generate music for legacy paid MiniMax Music API accounts",
+    "access": "write",
+    "strategy": "public",
+    "browser": false,
+    "args": [
+      {
+        "name": "prompt",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Music style, mood, and scenario (max 2000 characters)"
+      },
+      {
+        "name": "lyrics",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Lyrics with section tags and newlines (max 3500 characters)"
+      },
+      {
+        "name": "model",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "music-3.0",
+          "music-2.6"
+        ],
+        "default": "music-3.0",
+        "help": "Legacy paid generation model"
+      },
+      {
+        "name": "region",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "global",
+          "cn"
+        ],
+        "default": "global",
+        "help": "API deployment: global or cn"
+      },
+      {
+        "name": "output-format",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "url",
+          "hex"
+        ],
+        "default": "url",
+        "help": "Return a 24-hour URL or save inline hex audio"
+      },
+      {
+        "name": "audio-format",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "mp3",
+          "wav",
+          "pcm"
+        ],
+        "default": "mp3",
+        "help": "Rendered audio format"
+      },
+      {
+        "name": "sample-rate",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "16000",
+          "24000",
+          "32000",
+          "44100"
+        ],
+        "default": null,
+        "help": "Audio sample rate in Hz"
+      },
+      {
+        "name": "bitrate",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "32000",
+          "64000",
+          "128000",
+          "256000"
+        ],
+        "default": null,
+        "help": "Audio bitrate in bps"
+      },
+      {
+        "name": "instrumental",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Generate instrumental music; requires prompt and forbids lyrics"
+      },
+      {
+        "name": "lyrics-optimizer",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Generate lyrics from prompt when --lyrics is omitted"
+      },
+      {
+        "name": "aigc-watermark",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "CN-only audio watermark"
+      },
+      {
+        "name": "op",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": null,
+        "help": "Directory for --output-format hex (default: ~/Music/minimax)"
+      },
+      {
+        "name": "timeout",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 600,
+        "help": "HTTP generation timeout in seconds (1-1800)"
+      },
+      {
+        "name": "execute",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Submit the billable generation request"
+      }
+    ],
+    "columns": [
+      "status",
+      "model",
+      "region",
+      "output_format",
+      "audio_format",
+      "audio_url",
+      "file",
+      "expires_in_hours"
+    ],
+    "domain": "api.minimax.io",
+    "example": "opencli minimax music -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "mubu/doc",
     "site": "mubu",
     "name": "doc",
@@ -30685,7 +32050,7 @@
       "identifier",
       "notebook_url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm add-source <notebook> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30737,7 +32102,7 @@
       "emoji",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm create <title> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30758,7 +32123,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm current -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30801,7 +32166,7 @@
       "status",
       "notebook_url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm generate-audio <notebook> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30864,7 +32229,7 @@
       "status",
       "notebook_url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm generate-slides <notebook> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30891,7 +32256,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm get -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30914,7 +32279,7 @@
       "notebook_id",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm history -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30937,7 +32302,7 @@
       "source",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm list -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -30993,7 +32358,7 @@
       "source",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm note-list -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31025,7 +32390,7 @@
       "source",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm notes-get <note> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31059,7 +32424,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm open <notebook> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31092,7 +32457,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm source-fulltext <source> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31128,7 +32493,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm source-get <source> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31163,7 +32528,7 @@
       "keywords",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm source-guide <source> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31188,7 +32553,7 @@
       "url",
       "source"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm source-list -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31211,7 +32576,7 @@
       "title",
       "notebooks"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm status -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31232,7 +32597,7 @@
       "source",
       "url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm summary -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31315,7 +32680,7 @@
       "title",
       "notebook_url"
     ],
-    "domain": "notebooklm.google.com",
+    "domain": "notebook.google.com",
     "example": "opencli notebooklm write-note <notebook> --title <title> --content <content> -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -31390,7 +32755,7 @@
     "site": "nowcoder",
     "name": "detail",
     "aliases": [],
-    "description": "Post detail view (supports ID / UUID / URL)",
+    "description": "Content or moment detail (use an ID or URL returned by search/experience)",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -31403,12 +32768,19 @@
         "positional": true,
         "choices": [],
         "default": null,
-        "help": "Post ID, UUID, or URL"
+        "help": "Numeric content ID, moment UUID, or canonical URL"
       }
     ],
     "columns": [
+      "post_type",
+      "id",
+      "uuid",
+      "entity_id",
+      "url",
       "title",
       "author",
+      "author_id",
+      "author_url",
       "school",
       "content",
       "likes",
@@ -31427,7 +32799,7 @@
     "site": "nowcoder",
     "name": "experience",
     "aliases": [],
-    "description": "Interview experience posts",
+    "description": "Interview experience content and moment posts",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -31440,7 +32812,7 @@
         "positional": false,
         "choices": [],
         "default": 1,
-        "help": "Page number"
+        "help": "Page number (1-1000)"
       },
       {
         "name": "limit",
@@ -31450,18 +32822,26 @@
         "positional": false,
         "choices": [],
         "default": 15,
-        "help": "Number of items"
+        "help": "Number of posts (1-50)"
       }
     ],
     "columns": [
       "rank",
+      "post_type",
+      "id",
+      "uuid",
+      "entity_id",
+      "url",
       "title",
       "author",
+      "author_id",
+      "author_url",
       "school",
+      "content",
       "likes",
       "comments",
       "views",
-      "id"
+      "time"
     ],
     "domain": "www.nowcoder.com",
     "example": "opencli nowcoder experience -f yaml",
@@ -31808,7 +33188,7 @@
     "site": "nowcoder",
     "name": "search",
     "aliases": [],
-    "description": "Full-text search",
+    "description": "Search content and moment posts",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -31830,8 +33210,8 @@
         "valueRequired": false,
         "positional": false,
         "choices": [],
-        "default": "all",
-        "help": "Search type (all/post/question/user/job)"
+        "default": "post",
+        "help": "Post search scope (post/all)"
       },
       {
         "name": "limit",
@@ -31841,16 +33221,26 @@
         "positional": false,
         "choices": [],
         "default": 10,
-        "help": "Number of results"
+        "help": "Number of posts (1-50)"
       }
     ],
     "columns": [
       "rank",
+      "post_type",
+      "id",
+      "uuid",
+      "entity_id",
+      "url",
       "title",
       "author",
+      "author_id",
+      "author_url",
       "school",
       "content",
-      "id"
+      "likes",
+      "comments",
+      "views",
+      "time"
     ],
     "domain": "www.nowcoder.com",
     "example": "opencli nowcoder search <query> -f yaml",
@@ -34511,6 +35901,172 @@
     "siteSession": null
   },
   {
+    "command": "pixiv/bookmark-download",
+    "site": "pixiv",
+    "name": "bookmark-download",
+    "aliases": [],
+    "description": "Batch download current Pixiv account bookmarks for illustrations or novels",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "type",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "illust",
+        "help": "Bookmark type: illust or novel"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of bookmarks to download"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset"
+      },
+      {
+        "name": "visibility",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "show",
+        "help": "Bookmark visibility: show(public) or hide(private)"
+      },
+      {
+        "name": "output",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "./pixiv-downloads/bookmarks",
+        "help": "Output directory"
+      },
+      {
+        "name": "file-format",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "txt",
+        "help": "Novel output file format: txt or md"
+      },
+      {
+        "name": "execute",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Actually write the local archive"
+      }
+    ],
+    "columns": [
+      "rank",
+      "type",
+      "id",
+      "title",
+      "download_status",
+      "path"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv bookmark-download -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pixiv/bookmarks",
+    "site": "pixiv",
+    "name": "bookmarks",
+    "aliases": [],
+    "description": "List the current Pixiv account bookmarks for illustrations or novels",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "type",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "illust",
+        "help": "Bookmark type: illust or novel"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of bookmarks to list"
+      },
+      {
+        "name": "offset",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 0,
+        "help": "Pagination offset"
+      },
+      {
+        "name": "visibility",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "show",
+        "help": "Bookmark visibility: show(public) or hide(private)"
+      }
+    ],
+    "columns": [
+      "rank",
+      "type",
+      "bookmark_owner_id",
+      "title",
+      "author",
+      "user_id",
+      "illust_id",
+      "novel_id",
+      "pages",
+      "words",
+      "bookmarks",
+      "tags",
+      "created",
+      "url"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv bookmarks -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
     "command": "pixiv/detail",
     "site": "pixiv",
     "name": "detail",
@@ -34669,6 +36225,181 @@
     "example": "opencli pixiv login -f yaml",
     "defaultFormat": null,
     "siteSession": "persistent"
+  },
+  {
+    "command": "pixiv/me",
+    "site": "pixiv",
+    "name": "me",
+    "aliases": [],
+    "description": "Show the currently logged-in Pixiv account",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [],
+    "columns": [
+      "user_id",
+      "name",
+      "premium",
+      "profile_image",
+      "url"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv me -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pixiv/novel",
+    "site": "pixiv",
+    "name": "novel",
+    "aliases": [],
+    "description": "View Pixiv novel metadata (title, author, series, tags, stats)",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Novel ID"
+      }
+    ],
+    "columns": [
+      "novel_id",
+      "title",
+      "author",
+      "user_id",
+      "series_id",
+      "series_title",
+      "series_order",
+      "words",
+      "characters",
+      "bookmarks",
+      "likes",
+      "views",
+      "tags",
+      "created",
+      "url"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv novel <id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pixiv/novel-download",
+    "site": "pixiv",
+    "name": "novel-download",
+    "aliases": [],
+    "description": "Download Pixiv novel text as txt or markdown",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "novel-id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Novel ID"
+      },
+      {
+        "name": "output",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "./pixiv-downloads/novels",
+        "help": "Output directory"
+      },
+      {
+        "name": "file-format",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": "txt",
+        "help": "Output file format: txt or md"
+      },
+      {
+        "name": "execute",
+        "type": "boolean",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Actually write the local novel file"
+      }
+    ],
+    "columns": [
+      "novel_id",
+      "title",
+      "format",
+      "status",
+      "path"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv novel-download <novel-id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "pixiv/novels",
+    "site": "pixiv",
+    "name": "novels",
+    "aliases": [],
+    "description": "List a Pixiv user's novels",
+    "access": "read",
+    "strategy": "cookie",
+    "browser": true,
+    "args": [
+      {
+        "name": "user-id",
+        "type": "str",
+        "required": true,
+        "valueRequired": false,
+        "positional": true,
+        "choices": [],
+        "default": null,
+        "help": "Pixiv user ID"
+      },
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Number of results"
+      }
+    ],
+    "columns": [
+      "rank",
+      "title",
+      "novel_id",
+      "words",
+      "characters",
+      "bookmarks",
+      "tags",
+      "created",
+      "url"
+    ],
+    "domain": "www.pixiv.net",
+    "example": "opencli pixiv novels <user-id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
   },
   {
     "command": "pixiv/ranking",
@@ -39273,8 +41004,8 @@
     "aliases": [],
     "description": "新浪财经滚动新闻",
     "access": "read",
-    "strategy": "cookie",
-    "browser": true,
+    "strategy": "public",
+    "browser": false,
     "args": [],
     "columns": [
       "column",
@@ -39282,7 +41013,7 @@
       "date",
       "url"
     ],
-    "domain": "finance.sina.com.cn/roll",
+    "domain": "feed.mix.sina.com.cn",
     "example": "opencli sinafinance rolling-news -f yaml",
     "defaultFormat": null,
     "siteSession": null
@@ -47083,7 +48814,7 @@
     "aliases": [],
     "description": "Get accounts following a Twitter/X user (defaults to the logged-in user when no user is given)",
     "access": "read",
-    "strategy": "ui",
+    "strategy": "intercept",
     "browser": true,
     "args": [
       {
@@ -53479,6 +55210,80 @@
         "choices": [],
         "default": 20,
         "help": "Number of results"
+      },
+      {
+        "name": "sort",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "comprehensive",
+          "latest",
+          "most-liked",
+          "most-commented",
+          "most-collected"
+        ],
+        "default": "comprehensive",
+        "help": "Sort order"
+      },
+      {
+        "name": "note-type",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "all",
+          "video",
+          "image"
+        ],
+        "default": "all",
+        "help": "Note type"
+      },
+      {
+        "name": "publish-time",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "anytime",
+          "day",
+          "week",
+          "half-year"
+        ],
+        "default": "anytime",
+        "help": "Publish time range"
+      },
+      {
+        "name": "scope",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "all",
+          "seen",
+          "unseen",
+          "following"
+        ],
+        "default": "all",
+        "help": "Search scope"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "all",
+          "same-city",
+          "nearby"
+        ],
+        "default": "all",
+        "help": "Location distance"
       }
     ],
     "columns": [
@@ -53664,6 +55469,66 @@
     ],
     "domain": "www.xiaoyuzhoufm.com",
     "example": "opencli xiaoyuzhou episode <id> -f yaml",
+    "defaultFormat": null,
+    "siteSession": null
+  },
+  {
+    "command": "xiaoyuzhou/history",
+    "site": "xiaoyuzhou",
+    "name": "history",
+    "aliases": [],
+    "description": "List playback history for the logged-in Xiaoyuzhou account",
+    "access": "read",
+    "strategy": "local",
+    "browser": false,
+    "args": [
+      {
+        "name": "limit",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 20,
+        "help": "Maximum rows to return (default 20, max 5000). Ignored with --all."
+      },
+      {
+        "name": "all",
+        "type": "bool",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": false,
+        "help": "Fetch every history page until the API cursor is exhausted."
+      },
+      {
+        "name": "max-pages",
+        "type": "int",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [],
+        "default": 500,
+        "help": "Pagination safety limit (default 500, max 1000)."
+      }
+    ],
+    "columns": [
+      "rank",
+      "eid",
+      "pid",
+      "title",
+      "podcast",
+      "durationSec",
+      "progressSec",
+      "progressPct",
+      "playedAt",
+      "pubDate",
+      "finished",
+      "url"
+    ],
+    "domain": "api.xiaoyuzhoufm.com",
+    "example": "opencli xiaoyuzhou history -f yaml",
     "defaultFormat": null,
     "siteSession": null
   },
@@ -55464,7 +57329,7 @@
     "site": "youtube",
     "name": "search",
     "aliases": [],
-    "description": "Search YouTube videos",
+    "description": "Search YouTube videos, Shorts, channels, and playlists",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -56139,7 +58004,7 @@
     "site": "zhihu",
     "name": "answer-comments",
     "aliases": [],
-    "description": "知乎回答评论列表",
+    "description": "知乎回答评论列表（保留回复层级）",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -56173,6 +58038,19 @@
         "choices": [],
         "default": 3,
         "help": "Number of replies to include per top-level comment (max 100)"
+      },
+      {
+        "name": "order",
+        "type": "str",
+        "required": false,
+        "valueRequired": false,
+        "positional": false,
+        "choices": [
+          "score",
+          "latest"
+        ],
+        "default": "score",
+        "help": "Root comment order"
       }
     ],
     "columns": [
@@ -56400,7 +58278,7 @@
     "site": "zhihu",
     "name": "download",
     "aliases": [],
-    "description": "导出知乎文章为 Markdown 格式",
+    "description": "导出知乎专栏文章或回答为 Markdown 格式",
     "access": "read",
     "strategy": "cookie",
     "browser": true,
@@ -56413,7 +58291,7 @@
         "positional": false,
         "choices": [],
         "default": null,
-        "help": "Article URL (zhuanlan.zhihu.com/p/xxx)"
+        "help": "Column article URL, answer ID, typed target, or answer URL"
       },
       {
         "name": "output",
@@ -56443,7 +58321,7 @@
       "status",
       "size"
     ],
-    "domain": "zhuanlan.zhihu.com",
+    "domain": "www.zhihu.com",
     "example": "opencli zhihu download --url <url> -f yaml",
     "defaultFormat": null,
     "siteSession": null
